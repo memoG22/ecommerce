@@ -14,48 +14,54 @@ class NavBar extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row">
-          {/* <div className="col md-12"> */}
-          <Nav className={Styles.navBar}>
-            <div className="col sm-3">
-              <NavItem>
-                <NavLink to="/shop">
-                  <h1 className={Styles.whiteTextandCenter}>Shop</h1>
-                </NavLink>
-              </NavItem>
-            </div>
-            <div className="col sm-3">
-              <NavItem>
-                <NavLink to="/signin">
-                  <h1 className={Styles.whiteTextandCenter}>Sign In</h1>
-                </NavLink>
-              </NavItem>
-            </div>
-            <div className="col sm-3">
-              <NavItem>
-                <NavLink to="/careers">
-                  <h1 className={Styles.whiteTextandCenter}>Careers</h1>
-                </NavLink>
-              </NavItem>
-            </div>
-            <div className="col sm-3">
-              <NavItem>
-                <NavLink to="/contact">
-                  <h1 className={Styles.whiteTextandCenter}>Contact</h1>
-                </NavLink>
-              </NavItem>
-            </div>
-          </Nav>
-        </div>
-        {/* </div> */}
         <div>
-          <Route exact path="/shop" component={Shop} />
-          <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/careers" component={Careers} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="/shop/men" component={ShopMen} />
-          <Route exact path="/shop/women" component={ShopWomen} />
-          <Route exact path="/shop/children" component={ShopChildren} />
+          <div className="row">
+            <Nav className={Styles.navBar}>
+              <div className="col sm-3">
+                <NavItem>
+                  <NavLink to="/shop">
+                    <h1 className={Styles.whiteTextandCenter}>Shop</h1>
+                  </NavLink>
+                </NavItem>
+              </div>
+              <div className="col sm-3">
+                <NavItem>
+                  <NavLink to="/signin">
+                    <h1 className={Styles.whiteTextandCenter}>Sign In</h1>
+                  </NavLink>
+                </NavItem>
+              </div>
+              <div className="col sm-3">
+                <NavItem>
+                  <NavLink to="/careers">
+                    <h1 className={Styles.whiteTextandCenter}>Careers</h1>
+                  </NavLink>
+                </NavItem>
+              </div>
+              <div className="col sm-3">
+                <NavItem>
+                  <NavLink to="/contact">
+                    <h1 className={Styles.whiteTextandCenter}>Contact</h1>
+                  </NavLink>
+                </NavItem>
+                <br />
+                <NavItem className={Styles.textRight}>
+                  <div className="fa fa-search">
+                    <input type="text" />
+                  </div>
+                </NavItem>
+              </div>
+            </Nav>
+          </div>
+          <div>
+            <Route exact path="/shop" component={Shop} />
+            <Route exact path="/signin" component={SignIn} />
+            <Route exact path="/careers" component={Careers} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/shop/men" component={ShopMen} />
+            <Route exact path="/shop/women" component={ShopWomen} />
+            <Route exact path="/shop/children" component={ShopChildren} />
+          </div>
         </div>
       </React.Fragment>
     );

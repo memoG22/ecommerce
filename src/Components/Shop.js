@@ -1,11 +1,30 @@
 import React from "react";
 import axios from "axios";
 import Styles from "./Nav.module.css";
+import Carousel from "../Shared/Carousel";
 
 function Shop() {
   const [color, colorToggle] = React.useState(false);
   const [color1, colorToggle1] = React.useState(false);
   const [color2, colorToggle2] = React.useState(false);
+  const [items, setItems] = React.useState([]);
+
+  React.useEffect(() => {
+    getItems();
+  }, []);
+
+  function getItems() {
+    axios.get("/api/items").then(response => {
+      console.log(response);
+      let items = response.data;
+      for (let i = 0; i < items.length; i++) {
+        let image = items[i].Image;
+        setItems(items);
+
+        console.log(items);
+      }
+    });
+  }
 
   function ShopMen() {
     document.location = "/shop/men";
@@ -89,6 +108,9 @@ function Shop() {
             />
           )}
         </div>
+      </div>
+      <div className="row">
+        <div className="col xs-12" />
       </div>
     </React.Fragment>
   );

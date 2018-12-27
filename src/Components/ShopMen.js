@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Styles from "./Nav.module.css";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 function ShopMen() {
   const [items, setItems] = React.useState([]);
@@ -11,23 +12,37 @@ function ShopMen() {
   }, []);
 
   function getItems() {
-    axios.get("/api/items").then(response => {
+    axios.get("/api/item/male").then(response => {
       console.log(response);
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
         let image = items[i].Image;
-        setImage(image);
         setItems(items);
 
         console.log(items);
       }
     });
   }
+
+  function deleteClick(id) {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      deleteItem(id);
+    }
+  }
+
+  function deleteItem(id) {
+    axios.delete("/api/item/" + id).then(response => {
+      console.log(response);
+      alert("Delete was successful");
+      window.location.reload();
+    });
+  }
+
   return (
-    <div>
+    <div className={Styles.pageBackground}>
       <div className="row">
         <div className="col sm-12">
-          <h1 style={{ textAlign: "center" }}>Shop Men</h1>
+          <h1 className={Styles.whiteTextandCenter}>Shop Men</h1>
         </div>
       </div>
       <div className="row">
@@ -35,18 +50,33 @@ function ShopMen() {
           <div key={item.Id} className="col sm-4">
             <div>
               <ul>
-                <div>
+                <div style={{ width: "20vw", height: "20vh" }}>
                   <img
-                    style={{ width: "50vw", height: "50vh" }}
+                    width={"100%"}
+                    height={"100%"}
+                    style={{ width: "100%", height: "100%" }}
                     src={item.Image}
                     alt="no image"
                   />
                 </div>
                 <br />
 
-                <div>{item.Name}</div>
+                <div className={Styles.whiteText}>
+                  <b>{item.Name}</b>
+                </div>
                 <br />
-                <div>Price: $ {item.Price}</div>
+                <div className={Styles.whiteText}>
+                  <b>Price:</b> ${item.Price}
+                </div>
+                <br />
+                <div>
+                  <Button
+                    // onClick={() => deleteClick(item.Id)}
+                    color="primary"
+                  >
+                    Add to Shopping Cart
+                  </Button>
+                </div>
               </ul>
             </div>
           </div>
