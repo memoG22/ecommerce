@@ -5,7 +5,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 function ShopMen() {
   const [items, setItems] = React.useState([]);
-  const [image, setImage] = React.useState([]);
 
   React.useEffect(() => {
     getItems();
@@ -16,10 +15,7 @@ function ShopMen() {
       console.log(response);
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
-        let image = items[i].Image;
         setItems(items);
-
-        console.log(items);
       }
     });
   }
@@ -39,10 +35,10 @@ function ShopMen() {
   }
 
   return (
-    <div className={Styles.pageBackground}>
+    <div>
       <div className="row">
         <div className="col sm-12">
-          <h1 className={Styles.whiteTextandCenter}>Shop Men</h1>
+          <h1 className={Styles.textCenter}>Shop Men</h1>
         </div>
       </div>
       <div className="row">
@@ -61,11 +57,11 @@ function ShopMen() {
                 </div>
                 <br />
 
-                <div className={Styles.whiteText}>
+                <div>
                   <b>{item.Name}</b>
                 </div>
                 <br />
-                <div className={Styles.whiteText}>
+                <div>
                   <b>Price:</b> ${item.Price}
                 </div>
                 <br />

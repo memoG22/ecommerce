@@ -22,10 +22,10 @@ function ShopChildren() {
 
   return (
     <React.Fragment>
-      <div className={Styles.pageBackground}>
+      <div>
         <div className="row">
           <div className="col sm-4">
-            <h1 className={Styles.whiteTextandCenter}>Shop Children</h1>
+            <h1 className={Styles.textCenter}>Shop Children</h1>
           </div>
         </div>
         <div className="row">
@@ -48,11 +48,11 @@ function ShopChildren() {
                     />
                   </div>
                   <br />
-                  <div className={Styles.whiteText}>
+                  <div>
                     <b>{item.Name}</b>
                   </div>
                   <br />
-                  <div className={Styles.whiteText}>
+                  <div>
                     <b>Price:</b> ${item.Price}
                   </div>
                   <br />

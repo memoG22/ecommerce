@@ -9,6 +9,7 @@ import SignIn from "./SignIn";
 import ShopMen from "./ShopMen";
 import ShopWomen from "./ShopWomen";
 import ShopChildren from "./ShopChildren";
+import Home from "./Home";
 
 class NavBar extends React.Component {
   render() {
@@ -17,6 +18,21 @@ class NavBar extends React.Component {
         <div>
           <div className="row">
             <Nav className={Styles.navBar}>
+              <div className="col sm-3">
+                <NavItem>
+                  <NavLink to="/home">
+                    <div
+                      style={{
+                        textAlign: "center",
+                        height: "100%",
+                        size: "100%",
+                        color: "white"
+                      }}
+                      className="fa fa-home fa-4x"
+                    />
+                  </NavLink>
+                </NavItem>
+              </div>
               <div className="col sm-3">
                 <NavItem>
                   <NavLink to="/shop">
@@ -44,13 +60,19 @@ class NavBar extends React.Component {
                     <h1 className={Styles.whiteTextandCenter}>Contact</h1>
                   </NavLink>
                 </NavItem>
-                <br />
-                <NavItem className={Styles.textRight}>
-                  <div className="fa fa-search">
-                    <input type="text" />
-                  </div>
-                </NavItem>
               </div>
+              <br />
+              <NavItem className={Styles.textRight}>
+                <div
+                  style={{
+                    color: "black",
+                    backgroundColor: "white"
+                  }}
+                  className="fa fa-search"
+                >
+                  <input placeholder="Search" type="text" />
+                </div>
+              </NavItem>
             </Nav>
           </div>
           <div>
@@ -61,6 +83,7 @@ class NavBar extends React.Component {
             <Route exact path="/shop/men" component={ShopMen} />
             <Route exact path="/shop/women" component={ShopWomen} />
             <Route exact path="/shop/children" component={ShopChildren} />
+            <Route exact path="/home" component={Home} />
           </div>
         </div>
       </React.Fragment>

@@ -8,8 +8,6 @@
 .whiteTextandCenter {
     width:100%;
 
-    text-align: center;
-
     color:white;
     
     opacity:5;
@@ -22,13 +20,11 @@
 }
 
 .textCenter {
-    color:white;
 
     text-align: center
 }
 
 .textRight {
-    color:white;
 
     text-align: right
 }
@@ -40,9 +36,7 @@
 }
 
 .navBar {
-    border:5px;
-    border-style: solid;
-    border-color: aliceblue;
+ 
 
     width: 100%;
     background-color: rgb(0, 0, 0);

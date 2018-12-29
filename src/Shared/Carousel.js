@@ -46,14 +46,14 @@ class Carousel1 extends Component {
 
   render() {
     const { activeIndex } = this.state;
-    console.log("Carousel" + this.props.items.Image);
+    console.log("Carousel" + this.props.items);
 
     const slides = this.props.items.map(item => {
       return (
         <CarouselItem
           onExiting={this.onExiting}
           onExited={this.onExited}
-          key={item.id}
+          key={item.Id}
         >
           <img width={"100%"} src={item.Image} alt={"No image"} />
           <CarouselCaption
