@@ -1,9 +1,11 @@
 import React from "react";
 import Styles from "./Nav.module.css";
 import axios from "axios";
+import { Route, NavLink, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-function ShopChildren() {
+function ShopChildren(props) {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
@@ -19,7 +21,9 @@ function ShopChildren() {
       console.log(response);
     });
   }
-
+  function addToShopcart(Id) {
+    props.setShoppingCart(Id);
+  }
   return (
     <React.Fragment>
       <div>
@@ -58,8 +62,7 @@ function ShopChildren() {
                   <br />
                   <div>
                     <Button
-                      // onClick={() => deleteClick(item.Id)}
-
+                      onClick={() => addToShopcart(item.Id)}
                       color="primary"
                     >
                       Add to Shopping Cart
@@ -74,5 +77,17 @@ function ShopChildren() {
     </React.Fragment>
   );
 }
+function mapDispatchToProps(dispatch) {
+  return {
+    setShoppingCart: shoppingCart =>
+      dispatch({
+        type: "SET_USER",
+        shoppingCart
+      })
+  };
+}
 
-export default ShopChildren;
+export default connect(
+  null,
+  mapDispatchToProps
+)(ShopChildren);

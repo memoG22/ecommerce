@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
 import Styles from "./Nav.module.css";
+import { connect } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-function ShopMen() {
+function ShopMen(props) {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
@@ -20,18 +21,12 @@ function ShopMen() {
     });
   }
 
-  function deleteClick(id) {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      deleteItem(id);
-    }
+  function addToShopcart(Id) {
+    props.setShoppingCart(Id);
   }
 
-  function deleteItem(id) {
-    axios.delete("/api/item/" + id).then(response => {
-      console.log(response);
-      alert("Delete was successful");
-      window.location.reload();
-    });
+  function addToShopcart(Id) {
+    props.setShoppingCart(Id);
   }
 
   return (
@@ -67,7 +62,7 @@ function ShopMen() {
                 <br />
                 <div>
                   <Button
-                    // onClick={() => deleteClick(item.Id)}
+                    onClick={() => addToShopcart(item.Id)}
                     color="primary"
                   >
                     Add to Shopping Cart
@@ -82,4 +77,17 @@ function ShopMen() {
   );
 }
 
-export default ShopMen;
+function mapDispatchToProps(dispatch) {
+  return {
+    setShoppingCart: shoppingCart =>
+      dispatch({
+        type: "SET_USER",
+        shoppingCart
+      })
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ShopMen);

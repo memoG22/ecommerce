@@ -3,13 +3,15 @@ import { createStore } from "redux";
 function reducer(state, action) {
   if (!state) {
     return {
-      user: null
+      searchItems: null,
+      shoppingCart: null
     };
   }
   if (action.type === "SET_USER") {
     return {
       ...state,
-      user: action.user
+      searchItems: action.searchItems,
+      shoppingCart: action.shoppingCart
     };
   }
 }

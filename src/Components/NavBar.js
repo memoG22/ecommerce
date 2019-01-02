@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, withRouter } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import {
   Dropdown,
@@ -28,14 +28,10 @@ function NavBar(props) {
   const [search, setSearchResults] = React.useState([]);
 
   function handleSearch() {
-    console.log(searchString + " " + "search");
-
     axios.get("/api/item/search?=" + searchString).then(response => {
-      console.log(response);
       let search = response.data;
       setSearchResults(search);
       props.setsearch(search);
-
       props.history.push("/searchresults");
     });
   }
@@ -187,15 +183,17 @@ function NavBar(props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setsearch: user =>
+    setsearch: searchItems =>
       dispatch({
         type: "SET_USER",
-        user
+        searchItems
       })
   };
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(NavBar);
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(NavBar)
+);

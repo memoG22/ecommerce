@@ -1,9 +1,11 @@
 import React from "react";
 import Styles from "./Nav.module.css";
 import axios from "axios";
+import { connect } from "react-redux";
+import { Route, NavLink, withRouter } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-function ShopWomen() {
+function ShopWomen(props) {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
@@ -18,6 +20,10 @@ function ShopWomen() {
       }
       console.log(response);
     });
+  }
+
+  function addToShopcart(Id) {
+    props.setShoppingCart(Id);
   }
 
   return (
@@ -53,7 +59,7 @@ function ShopWomen() {
                   <br />
                   <div>
                     <Button
-                      // onClick={() => deleteClick(item.Id)}
+                      onClick={() => addToShopcart(item.Id)}
                       color="primary"
                     >
                       Add to Shopping Cart
@@ -68,4 +74,17 @@ function ShopWomen() {
     </React.Fragment>
   );
 }
-export default ShopWomen;
+function mapDispatchToProps(dispatch) {
+  return {
+    setShoppingCart: shoppingCart =>
+      dispatch({
+        type: "SET_USER",
+        shoppingCart
+      })
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ShopWomen);

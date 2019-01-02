@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Styles from "./Nav.module.css";
 import Carousel from "../Shared/Carousel";
+import { Route, NavLink, withRouter } from "react-router-dom";
 
 function Shop(props) {
   const [color, colorToggle] = React.useState(false);
@@ -30,16 +31,17 @@ function Shop(props) {
   }
 
   function ShopWomen() {
-    document.location = "/shop/women";
+    props.history.push("/shop/women");
   }
 
   function ShopChildren() {
-    document.location = "/shop/children";
+    props.history.push("/shop/children");
   }
   return (
     <React.Fragment>
       <div className="row" style={{ marginRight: "0px", marginLeft: "0px" }}>
         <div
+          onClick={() => ShopMen()}
           onMouseEnter={() => colorToggle(!color)}
           onMouseLeave={() => colorToggle(!color)}
           className="col xs-4"
@@ -63,6 +65,7 @@ function Shop(props) {
         </div>
 
         <div
+          onClick={() => ShopWomen()}
           onMouseEnter={() => colorToggle1(!color1)}
           onMouseLeave={() => colorToggle1(!color1)}
           style={{
@@ -86,6 +89,7 @@ function Shop(props) {
       </div>
       <div className="row">
         <div
+          onClick={() => ShopChildren()}
           onMouseEnter={() => colorToggle2(!color2)}
           onMouseLeave={() => colorToggle2(!color2)}
           style={{
@@ -114,4 +118,4 @@ function Shop(props) {
   );
 }
 
-export default Shop;
+export default withRouter(Shop);
