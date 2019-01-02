@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import { Route, NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import {
@@ -18,21 +19,24 @@ import ShopWomen from "./ShopWomen";
 import ShopChildren from "./ShopChildren";
 import Home from "./Home";
 import ShoppingBasket from "./ShoppingBasket";
+import SearchResults from "./SearchResults";
 
-function NavBar() {
+function NavBar(props) {
   const [dropdownOpen, toggle] = React.useState(false);
   const [searchString, setSearchString] = React.useState("");
   const [dropDown, setDropDown] = React.useState(false);
-
-  React.useEffect(() => {
-    console.log(searchString);
-  });
+  const [search, setSearchResults] = React.useState([]);
 
   function handleSearch() {
     console.log(searchString + " " + "search");
 
     axios.get("/api/item/search?=" + searchString).then(response => {
       console.log(response);
+      let search = response.data;
+      setSearchResults(search);
+      props.setsearch(search);
+
+      props.history.push("/searchresults");
     });
   }
 
@@ -175,9 +179,23 @@ function NavBar() {
         <Route exact path="/shop/women" component={ShopWomen} />
         <Route exact path="/shop/children" component={ShopChildren} />
         <Route exact path="/home" component={Home} />
+        <Route exact path="/searchresults" component={SearchResults} />
       </div>
     </React.Fragment>
   );
 }
 
-export default NavBar;
+function mapDispatchToProps(dispatch) {
+  return {
+    setsearch: user =>
+      dispatch({
+        type: "SET_USER",
+        user
+      })
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(NavBar);

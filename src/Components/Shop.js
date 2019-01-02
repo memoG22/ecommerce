@@ -3,7 +3,7 @@ import axios from "axios";
 import Styles from "./Nav.module.css";
 import Carousel from "../Shared/Carousel";
 
-function Shop() {
+function Shop(props) {
   const [color, colorToggle] = React.useState(false);
   const [color1, colorToggle1] = React.useState(false);
   const [color2, colorToggle2] = React.useState(false);
@@ -26,7 +26,7 @@ function Shop() {
   }
 
   function ShopMen() {
-    document.location = "/shop/men";
+    props.history.push("/shop/men");
   }
 
   function ShopWomen() {
