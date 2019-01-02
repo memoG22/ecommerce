@@ -5,7 +5,9 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <NavBar />
+        <div>
+          <NavBar />
+        </div>
       </React.Fragment>
     );
   }

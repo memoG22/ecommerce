@@ -18,7 +18,6 @@ function Shop() {
       console.log(response);
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
-        let image = items[i].Image;
         setItems(items);
 
         console.log(items);
@@ -84,6 +83,8 @@ function Shop() {
             <div onClick={() => ShopWomen()} className={Styles.colorToggle} />
           )}
         </div>
+      </div>
+      <div className="row">
         <div
           onMouseEnter={() => colorToggle2(!color2)}
           onMouseLeave={() => colorToggle2(!color2)}
@@ -108,9 +109,6 @@ function Shop() {
             />
           )}
         </div>
-      </div>
-      <div className="row">
-        <div className="col xs-12" />
       </div>
     </React.Fragment>
   );

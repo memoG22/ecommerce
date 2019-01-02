@@ -7,37 +7,28 @@
 
 .whiteTextandCenter {
     width:100%;
-
     color:white;
-    
     opacity:5;
 }
 
 .whiteText{
     color:white;
-
-
 }
 
 .textCenter {
-
     text-align: center
 }
 
 .textRight {
-
     text-align: right
 }
 
 .textLeft {
     color:white;
-
     text-align: left
 }
 
 .navBar {
- 
-
     width: 100%;
     background-color: rgb(0, 0, 0);
     height: 100%;
@@ -49,31 +40,54 @@
 
 .gridContainer {
     display: grid;
-  }
+}
 
-  .colorToggle {
-      position:absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+.colorToggle {
+    position:absolute;
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%; 
     height: 100%; 
     opacity: 0.7;
     background-color:
       rgb(95, 16, 16) 
+}
 
-  }
-
-  .pageBackground {
-      height:100vh;
-      width: 100vw;
-      margin:0;
-      padding:0;
+.pageBackground {
+    height:100vh;
+    width: 100vw;
+    margin:0;
+    padding:0;
     background-color:rgb(0, 0, 0); 
     background-size: 100%; 
-   background-repeat:no-repeat; 
-   background-position: center;
-   background-attachment: fixed;
+    background-repeat:no-repeat; 
+    background-position: center;
+    background-attachment: fixed;
 
-  }
+}
+
+@media only screen and (min-width:1024px) {
+
+    [class*="col sm-2"] {
+        
+        display:none
+    }
+
+}
+
+@media only screen and (max-width: 1024px) {
+
+    [class*="col sm-3"] {
+
+        display:none
+    }
+
+    [class*="col sm-4"] {
+        display:inline
+    }
+
+  
+ }
+ 

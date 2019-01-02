@@ -46,7 +46,6 @@ class Carousel1 extends Component {
 
   render() {
     const { activeIndex } = this.state;
-    console.log("Carousel" + this.props.items);
 
     const slides = this.props.items.map(item => {
       return (
@@ -55,7 +54,12 @@ class Carousel1 extends Component {
           onExited={this.onExited}
           key={item.Id}
         >
-          <img width={"100%"} src={item.Image} alt={"No image"} />
+          <img
+            height={"100%"}
+            width={"100%"}
+            src={item.Image}
+            alt={"No image"}
+          />
           <CarouselCaption
             captionText={item.caption}
             captionHeader={item.caption}
