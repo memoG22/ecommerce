@@ -21,8 +21,8 @@ function ShopChildren(props) {
       console.log(response);
     });
   }
-  function addToShopcart(Id) {
-    props.setShoppingCart(Id);
+  function addToShopcart(item) {
+    props.setShoppingCart([...props.shoppingCart, item]);
   }
   return (
     <React.Fragment>
@@ -61,10 +61,7 @@ function ShopChildren(props) {
                   </div>
                   <br />
                   <div>
-                    <Button
-                      onClick={() => addToShopcart(item.Id)}
-                      color="primary"
-                    >
+                    <Button onClick={() => addToShopcart(item)} color="primary">
                       Add to Shopping Cart
                     </Button>
                   </div>
@@ -87,7 +84,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+function mapStateToProps(state) {
+  return {
+    shoppingCart: state.shoppingCart
+  };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ShopChildren);

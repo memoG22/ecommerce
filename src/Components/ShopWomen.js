@@ -23,15 +23,8 @@ function ShopWomen(props) {
     });
   }
 
-  function addToShopcart(id) {
-    let shoppingCart = id;
-    console.log(shoppingCart);
-    setShoppingCart(shoppingCart);
-    buildShoppingCart(shoppingCart);
-  }
-
-  function buildShoppingCart(shoppingCart) {
-    props.setShoppingCart(shoppingCart);
+  function addToShopcart(item) {
+    props.setShoppingCart([...props.shoppingCart, item]);
   }
 
   return (
