@@ -1,13 +1,12 @@
 import React from "react";
 import Styles from "./Nav.module.css";
 import { connect } from "react-redux";
-import { Route, NavLink, withRouter } from "react-router-dom";
-
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button } from "reactstrap";
 
 function SearchResults(props) {
-  const [searchItems, setItems] = React.useState([props.searchItems]);
+  const [searchItems, setSearchItems] = React.useState([]);
   const [nullView, setNullView] = React.useState(false);
+  const [item, setItems] = React.useState([]);
 
   React.useEffect(() => {
     appendItems();
@@ -15,7 +14,7 @@ function SearchResults(props) {
 
   function appendItems() {
     let searchItems = props.searchItems;
-    setItems(searchItems);
+    setSearchItems(searchItems);
     checkItems(searchItems);
   }
 
@@ -27,22 +26,21 @@ function SearchResults(props) {
     }
   }
 
-  function addToShopcart(Id) {
-    props.setShoppingCart(Id);
+  function addToShopcart(item) {
+    console.log(item);
+    shopcart(item);
+  }
+  function shopcart(item) {
+    props.setShoppingCart(item);
   }
 
   return (
     <React.Fragment>
-      <div className="row">
-        <div className=" col sm-4">
-          <h1 className={Styles.textCenter}>Search Results</h1>
-        </div>
-      </div>
       {!nullView && (
-        <div classname="row">
+        <div className="row">
           <div className="col sm-4">
             <h3 style={{ color: "gray" }} className={Styles.textCenter}>
-              Please search for items
+              Please refine your search or search for items
             </h3>
           </div>
         </div>
@@ -71,10 +69,7 @@ function SearchResults(props) {
                 </div>
                 <br />
                 <div>
-                  <Button
-                    onClick={() => addToShopcart(item.Id)}
-                    color="primary"
-                  >
+                  <Button onClick={() => addToShopcart(item)} color="primary">
                     Add to Shopping Cart
                   </Button>
                 </div>
@@ -91,16 +86,17 @@ function mapDispatchToProps(dispatch) {
   return {
     setShoppingCart: shoppingCart =>
       dispatch({
-        type: "SET_USER",
+        type: "SET_SHOPPINGCART",
         shoppingCart
       })
   };
 }
 
 function mapStateToProps(state) {
-  return {
-    searchItems: state.searchItems
-  };
+  return { ...state, searchItems: state.searchItems };
 }
 
-export default connect(mapStateToProps)(SearchResults);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchResults);

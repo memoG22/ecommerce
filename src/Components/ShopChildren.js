@@ -81,7 +81,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setShoppingCart: shoppingCart =>
       dispatch({
-        type: "SET_USER",
+        type: "SET_SHOPPINGCART",
         shoppingCart
       })
   };

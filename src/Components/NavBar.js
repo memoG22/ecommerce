@@ -186,7 +186,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setsearch: searchItems =>
       dispatch({
-        type: "SET_USER",
+        type: "SET_SEARCHRESULTS",
         searchItems
       })
   };

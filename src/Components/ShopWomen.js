@@ -7,6 +7,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 function ShopWomen(props) {
   const [items, setItems] = React.useState([]);
+  const [shoppingCart, setShoppingCart] = React.useState([]);
 
   React.useEffect(() => {
     getItems();
@@ -22,8 +23,15 @@ function ShopWomen(props) {
     });
   }
 
-  function addToShopcart(Id) {
-    props.setShoppingCart(Id);
+  function addToShopcart(id) {
+    let shoppingCart = id;
+    console.log(shoppingCart);
+    setShoppingCart(shoppingCart);
+    buildShoppingCart(shoppingCart);
+  }
+
+  function buildShoppingCart(shoppingCart) {
+    props.setShoppingCart(shoppingCart);
   }
 
   return (
@@ -58,10 +66,7 @@ function ShopWomen(props) {
                   </div>
                   <br />
                   <div>
-                    <Button
-                      onClick={() => addToShopcart(item.Id)}
-                      color="primary"
-                    >
+                    <Button onClick={() => addToShopcart(item)} color="primary">
                       Add to Shopping Cart
                     </Button>
                   </div>
@@ -78,7 +83,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setShoppingCart: shoppingCart =>
       dispatch({
-        type: "SET_USER",
+        type: "SET_SHOPPINGCART",
         shoppingCart
       })
   };

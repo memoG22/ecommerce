@@ -7,10 +7,15 @@ function reducer(state, action) {
       shoppingCart: []
     };
   }
-  if (action.type === "SET_USER") {
+  if (action.type === "SET_SEARCHRESULTS") {
     return {
       ...state,
-      searchItems: action.searchItems,
+      searchItems: action.searchItems
+    };
+  }
+  if (action.type === "SET_SHOPPINGCART") {
+    return {
+      ...state,
       shoppingCart: action.shoppingCart
     };
   }

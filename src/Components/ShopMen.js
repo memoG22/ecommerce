@@ -21,12 +21,12 @@ function ShopMen(props) {
     });
   }
 
-  function addToShopcart(Id) {
-    props.setShoppingCart(Id);
+  function addToShopcart(item) {
+    props.setShoppingCart(item);
   }
 
-  function addToShopcart(Id) {
-    props.setShoppingCart(Id);
+  function addToShopcart(item) {
+    props.setShoppingCart(item);
   }
 
   return (
@@ -61,10 +61,7 @@ function ShopMen(props) {
                 </div>
                 <br />
                 <div>
-                  <Button
-                    onClick={() => addToShopcart(item.Id)}
-                    color="primary"
-                  >
+                  <Button onClick={() => addToShopcart(item)} color="primary">
                     Add to Shopping Cart
                   </Button>
                 </div>
@@ -81,7 +78,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setShoppingCart: shoppingCart =>
       dispatch({
-        type: "SET_USER",
+        type: "SET_SHOPPINGCART",
         shoppingCart
       })
   };
