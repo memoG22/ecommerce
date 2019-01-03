@@ -24,7 +24,7 @@ function ShoppingBasket(props) {
       </div>
       <div clasname="row">
         {items.map(item => (
-          <div className="col sm-4">
+          <div key={item.Id} className="col sm-4">
             <div>
               <ul>
                 <div style={{ width: "20vw", height: "20vh" }}>
@@ -37,7 +37,6 @@ function ShoppingBasket(props) {
                   />
                 </div>
                 <br />
-
                 <div>
                   <b>{item.Name}</b>
                 </div>
@@ -46,6 +45,9 @@ function ShoppingBasket(props) {
                   <b>Price:</b> ${item.Price}
                 </div>
                 <br />
+                <div>
+                  <Button color="danger">Remove Item</Button>
+                </div>
               </ul>
             </div>
           </div>
