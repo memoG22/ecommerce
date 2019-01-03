@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Styles from "./Nav.module.css";
 import { connect } from "react-redux";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button } from "reactstrap";
 
 function ShopMen(props) {
   const [items, setItems] = React.useState([]);
@@ -22,11 +22,7 @@ function ShopMen(props) {
   }
 
   function addToShopcart(item) {
-    props.setShoppingCart(item);
-  }
-
-  function addToShopcart(item) {
-    props.setShoppingCart(item);
+    props.setShoppingCart([...props.shoppingCart, item]);
   }
 
   return (
@@ -84,7 +80,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+function mapStateToProps(state) {
+  return {
+    shoppingCart: state.shoppingCart
+  };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ShopMen);

@@ -6,7 +6,6 @@ import { Button } from "reactstrap";
 function SearchResults(props) {
   const [searchItems, setSearchItems] = React.useState([]);
   const [nullView, setNullView] = React.useState(false);
-  const [item, setItems] = React.useState([]);
 
   React.useEffect(() => {
     appendItems();
@@ -27,11 +26,7 @@ function SearchResults(props) {
   }
 
   function addToShopcart(item) {
-    console.log(item);
-    shopcart(item);
-  }
-  function shopcart(item) {
-    props.setShoppingCart(item);
+    props.setShoppingCart([...props.shoppingCart, item]);
   }
 
   return (
@@ -93,7 +88,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return { ...state, searchItems: state.searchItems };
+  return { searchItems: state.searchItems, shoppingCart: state.shoppingCart };
 }
 
 export default connect(
