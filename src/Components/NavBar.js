@@ -175,6 +175,7 @@ function NavBar(props) {
         <Route exact path="/shop/women" component={ShopWomen} />
         <Route exact path="/shop/children" component={ShopChildren} />
         <Route exact path="/home" component={Home} />
+        <Route exact path="" component={Home} />
         <Route exact path="/searchresults" component={SearchResults} />
       </div>
     </React.Fragment>

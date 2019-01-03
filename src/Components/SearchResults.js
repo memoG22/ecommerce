@@ -16,13 +16,17 @@ function SearchResults(props) {
   function appendItems() {
     let searchItems = props.searchItems;
     setItems(searchItems);
+    checkItems(searchItems);
+  }
 
-    if (searchItems === null || searchItems === []) {
+  function checkItems(searchItems) {
+    if (searchItems < 1) {
       setNullView(false);
     } else {
       setNullView(true);
     }
   }
+
   function addToShopcart(Id) {
     props.setShoppingCart(Id);
   }
