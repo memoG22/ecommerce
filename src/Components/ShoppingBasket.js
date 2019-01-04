@@ -1,15 +1,15 @@
 import React from "react";
 import Styles from "./Nav.module.css";
 import { connect } from "react-redux";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalBody } from "reactstrap";
 
 function ShoppingBasket(props) {
   const [items, setItems] = React.useState([]);
   const [creditCard, setCreditCard] = React.useState("");
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
-
   const [isOpen, toggleModal] = React.useState(false);
+  const [totalPrice, setTotalPrice] = React.useState("");
 
   React.useEffect(() => {
     appendItems();
@@ -18,6 +18,31 @@ function ShoppingBasket(props) {
   function appendItems() {
     let items = props.shoppingCart;
     setItems(items);
+    calculateTotal(items);
+  }
+
+  function ifZero(int) {
+    if (int == 0) {
+      return 0;
+    } else {
+      return int;
+    }
+  }
+
+  function calculateTotal(items) {
+    let totalPrice = 0;
+    for (let val of items) {
+      totalPrice += val.Price;
+    }
+    if (totalPrice == 0 || totalPrice == null || totalPrice == undefined) {
+      return;
+    } else {
+      appendTotal(totalPrice);
+    }
+  }
+
+  function appendTotal(totalPrice) {
+    setTotalPrice(totalPrice);
   }
 
   return (
@@ -28,17 +53,17 @@ function ShoppingBasket(props) {
         </div>
       </div>
       <div>
-        <div>
-          <Button
-            style={{ marginLeft: "90%" }}
-            onClick={() => toggleModal(!isOpen)}
-            color="primary"
-          >
-            Check out
-          </Button>
+        <div style={{ marginLeft: "90%" }}>
+          <div>
+            <b>Total</b> $ {ifZero(totalPrice)}
+            <br />
+            <Button onClick={() => toggleModal(!isOpen)} color="primary">
+              Check out
+            </Button>
+          </div>
         </div>
       </div>
-      <div clasname="row">
+      <div clasname="row" style={{ display: "inline-flex" }}>
         {items.map(item => (
           <div key={item.Id} className="col sm-4">
             <div>

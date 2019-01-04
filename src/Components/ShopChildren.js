@@ -18,7 +18,6 @@ function ShopChildren(props) {
       for (let i = 0; i < items.length; i++) {
         setItems(items);
       }
-      console.log(response);
     });
   }
   function addToShopcart(item) {
@@ -34,7 +33,7 @@ function ShopChildren(props) {
         </div>
         <div className="row">
           {items.map(item => (
-            <div key={item.Id} classname="col sm-4">
+            <div key={item.Id} className="col sm-4">
               <div>
                 <ul>
                   <div

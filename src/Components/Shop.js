@@ -16,12 +16,9 @@ function Shop(props) {
 
   function getItems() {
     axios.get("/api/items").then(response => {
-      console.log(response);
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
         setItems(items);
-
-        console.log(items);
       }
     });
   }

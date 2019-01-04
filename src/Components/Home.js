@@ -15,8 +15,6 @@ function Home() {
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
         setItems(items);
-
-        console.log(items);
       }
     });
   }
@@ -28,11 +26,11 @@ function Home() {
         </div>
       </div>
       <div className="row">
-        <div className="col xs-4">
-          <div style={{ maxHeight: "100%" }}>
+        {/* <div className="col xs-4">
+          {/* <div style={{ maxHeight: "100%" }}>
             <Carousel items={items} />
-          </div>
-        </div>
+          </div> */}
+        {/* </div>  */}
         <div className="col xs-4">
           <img
             height="100%"
@@ -43,15 +41,15 @@ function Home() {
       </div>
 
       {/* divider */}
-      <div className="row">
-        <div style={{ height: "50%" }} className="col xs-12">
-          <img
-            height="50%"
-            width="100%"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrdohWGkDIG5o4JgqZuytZMMIXn-NcVZIvPujOjQ7UKp8UUUpdHQ"
-          />
-        </div>
+      {/* <div className="row"> */}
+      <div style={{ height: "50%" }} className="col xs-12">
+        <img
+          height="50%"
+          width="100%"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrdohWGkDIG5o4JgqZuytZMMIXn-NcVZIvPujOjQ7UKp8UUUpdHQ"
+        />
       </div>
+      {/* </div> */}
       <div className="row">
         <div className="col xs-4">
           <img

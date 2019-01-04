@@ -13,7 +13,6 @@ function ShopMen(props) {
 
   function getItems() {
     axios.get("/api/item/male").then(response => {
-      console.log(response);
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
         setItems(items);

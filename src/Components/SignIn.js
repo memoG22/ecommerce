@@ -25,7 +25,6 @@ function SignIn() {
       Size
     };
     axios.post("api/post/item/", payload).then(response => {
-      console.log(response);
       alert("Post was successful");
       toggleModal(!isOpen);
     });
@@ -40,8 +39,6 @@ function SignIn() {
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
         setItems(items);
-
-        console.log(items);
       }
     });
   }

@@ -19,7 +19,6 @@ function ShopWomen(props) {
       for (let i = 0; i < items.length; i++) {
         setItems(items);
       }
-      console.log(response);
     });
   }
 
