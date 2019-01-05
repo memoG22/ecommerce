@@ -46,7 +46,7 @@ function ShoppingBasket(props) {
   }
 
   return (
-    <React.Fragment>
+    <div>
       <div className="row">
         <div className="col sm-4">
           <h1 className={Styles.textCenter}>Your Items</h1>
@@ -139,7 +139,7 @@ function ShoppingBasket(props) {
           </ModalBody>
         </Modal>
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 

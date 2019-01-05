@@ -37,135 +37,130 @@ function NavBar(props) {
   }
 
   return (
-    <React.Fragment>
-      <div className="row">
-        <Nav className={Styles.navBar}>
-          <div className="col sm-2">
-            <Dropdown
-              isOpen={dropdownOpen}
-              toggle={() => toggle(!dropdownOpen)}
+    <div className={Styles.root}>
+      <Nav className={Styles.navBar}>
+        <div className="col sm-2">
+          <Dropdown isOpen={dropdownOpen} toggle={() => toggle(!dropdownOpen)}>
+            <DropdownToggle
+              style={{
+                color: "white",
+                backgroundColor: "black"
+              }}
             >
-              <DropdownToggle
-                style={{
-                  color: "white",
-                  backgroundColor: "black"
-                }}
-              >
-                <div className="fa fa-bars fa-2x" />
-              </DropdownToggle>
-              <DropdownMenu
-                style={{
-                  backgroundColor: "black"
-                }}
-              >
-                <DropdownItem>
-                  <NavItem>
-                    <NavLink to="/shop">
-                      <h4 className={Styles.whiteText}>Shop</h4>
-                    </NavLink>
-                  </NavItem>
-                </DropdownItem>
-                <DropdownItem>
-                  <NavItem>
-                    <NavLink to="/signin">
-                      <h4 className={Styles.whiteText}>Sign In</h4>
-                    </NavLink>
-                  </NavItem>
-                </DropdownItem>
-                <DropdownItem>
-                  <NavItem>
-                    <NavLink to="/careers">
-                      <h4 className={Styles.whiteText}>Careers</h4>
-                    </NavLink>
-                  </NavItem>
-                </DropdownItem>
-                <DropdownItem>
-                  <NavItem>
-                    <NavLink to="/contact">
-                      <h4 className={Styles.whiteText}>Contact</h4>
-                    </NavLink>
-                  </NavItem>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
+              <div className="fa fa-bars fa-2x" />
+            </DropdownToggle>
+            <DropdownMenu
+              style={{
+                backgroundColor: "black"
+              }}
+            >
+              <DropdownItem>
+                <NavItem>
+                  <NavLink to="/shop">
+                    <h4 className={Styles.whiteText}>Shop</h4>
+                  </NavLink>
+                </NavItem>
+              </DropdownItem>
+              <DropdownItem>
+                <NavItem>
+                  <NavLink to="/signin">
+                    <h4 className={Styles.whiteText}>Sign In</h4>
+                  </NavLink>
+                </NavItem>
+              </DropdownItem>
+              <DropdownItem>
+                <NavItem>
+                  <NavLink to="/careers">
+                    <h4 className={Styles.whiteText}>Careers</h4>
+                  </NavLink>
+                </NavItem>
+              </DropdownItem>
+              <DropdownItem>
+                <NavItem>
+                  <NavLink to="/contact">
+                    <h4 className={Styles.whiteText}>Contact</h4>
+                  </NavLink>
+                </NavItem>
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
 
-          <div className="col sm-4">
-            <NavItem>
-              <NavLink to="/home">
-                <div
-                  onMouseEnter={() => setDropDown(!dropdownOpen)}
-                  style={{
-                    textAlign: "center",
-                    height: "100%",
-                    size: "100%",
-                    color: "white"
-                  }}
-                  className="fa fa-home fa-4x"
-                />
-              </NavLink>
-            </NavItem>
-          </div>
-          <div className="col sm-3">
-            <NavItem>
-              <NavLink to="/shop">
-                <h1 className={Styles.whiteTextandCenter}>Shop</h1>
-              </NavLink>
-            </NavItem>
-          </div>
-          <div className="col sm-3">
-            <NavItem>
-              <NavLink to="/signin">
-                <h1 className={Styles.whiteTextandCenter}>Sign In</h1>
-              </NavLink>
-            </NavItem>
-          </div>
-          <div className="col sm-3">
-            <NavItem>
-              <NavLink to="/careers">
-                <h1 className={Styles.whiteTextandCenter}>Careers</h1>
-              </NavLink>
-            </NavItem>
-          </div>
-          <div className="col sm-3">
-            <NavItem>
-              <NavLink to="/contact">
-                <h1 className={Styles.whiteTextandCenter}>Contact</h1>
-              </NavLink>
-            </NavItem>
-          </div>
-          <div className="col sm-4">
-            <NavItem className={Styles.textRight}>
+        <div className="col sm-4">
+          <NavItem>
+            <NavLink to="/home">
               <div
+                onMouseEnter={() => setDropDown(!dropdownOpen)}
                 style={{
-                  color: "black",
-                  backgroundColor: "white"
+                  textAlign: "center",
+                  height: "100%",
+                  size: "100%",
+                  color: "white"
                 }}
-                className="fa fa-search"
-              >
-                <input
-                  onChange={e => setSearchString(e.target.value)}
-                  value={searchString}
-                  placeholder="Search"
-                  type="text"
-                />
-                <button onClick={handleSearch}>Search</button>
-              </div>
-            </NavItem>
-          </div>
-          <div className="col sm-4">
-            <NavItem className={Styles.textRight}>
-              <NavLink to="/shoppingbasket">
-                <div
-                  style={{ color: "white" }}
-                  className="fa fa-shopping-basket fa-2x"
-                />
-              </NavLink>
-            </NavItem>
-          </div>
-        </Nav>
-      </div>
-      <div>
+                className="fa fa-home fa-4x"
+              />
+            </NavLink>
+          </NavItem>
+        </div>
+        <div className="col sm-3">
+          <NavItem>
+            <NavLink to="/shop">
+              <h1 className={Styles.whiteTextandCenter}>Shop</h1>
+            </NavLink>
+          </NavItem>
+        </div>
+        <div className="col sm-3">
+          <NavItem>
+            <NavLink to="/signin">
+              <h1 className={Styles.whiteTextandCenter}>Sign In</h1>
+            </NavLink>
+          </NavItem>
+        </div>
+        <div className="col sm-3">
+          <NavItem>
+            <NavLink to="/careers">
+              <h1 className={Styles.whiteTextandCenter}>Careers</h1>
+            </NavLink>
+          </NavItem>
+        </div>
+        <div className="col sm-3">
+          <NavItem>
+            <NavLink to="/contact">
+              <h1 className={Styles.whiteTextandCenter}>Contact</h1>
+            </NavLink>
+          </NavItem>
+        </div>
+        <div className="col sm-4">
+          <NavItem className={Styles.textRight}>
+            <div
+              style={{
+                color: "black",
+                backgroundColor: "white"
+              }}
+              className="fa fa-search"
+            >
+              <input
+                onChange={e => setSearchString(e.target.value)}
+                value={searchString}
+                placeholder="Search"
+                type="text"
+              />
+              <button onClick={handleSearch}>Search</button>
+            </div>
+          </NavItem>
+        </div>
+        <div className="col sm-4">
+          <NavItem className={Styles.textRight}>
+            <NavLink to="/shoppingbasket">
+              <div
+                style={{ color: "white" }}
+                className="fa fa-shopping-basket fa-2x"
+              />
+            </NavLink>
+          </NavItem>
+        </div>
+      </Nav>
+      <div className={Styles.main}>
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/shoppingbasket" component={ShoppingBasket} />
         <Route exact path="/signin" component={SignIn} />
@@ -178,7 +173,7 @@ function NavBar(props) {
         <Route exact path="" component={Home} />
         <Route exact path="/searchresults" component={SearchResults} />
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 
