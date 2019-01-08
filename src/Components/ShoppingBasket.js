@@ -53,7 +53,7 @@ function ShoppingBasket(props) {
         </div>
       </div>
       <div>
-        <div style={{ marginLeft: "90%" }}>
+        <div className={Styles.checkout}>
           <div>
             <b>Total</b> $ {ifZero(totalPrice)}
             <br />

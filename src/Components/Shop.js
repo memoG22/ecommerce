@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Styles from "./Nav.module.css";
+import MStyles from "./Shop.module.css";
 import Carousel from "../Shared/Carousel";
 import { Route, NavLink, withRouter } from "react-router-dom";
 
@@ -14,20 +15,38 @@ function Shop(props) {
   const [imageChildren, setImageChildren] = React.useState("");
 
   React.useEffect(() => {
-    getItems();
+    getMale();
+    getFemale();
+    getChildren();
   }, []);
 
-  function getItems() {
-    axios.get("/api/items").then(response => {
+  function getMale() {
+    axios.get("/api/item/male").then(response => {
+      let items = response.data;
+      console.log(items);
+      for (let i = 0; i < items.length; i++) {
+        let imageMen = items[0].Image;
+        setImageMen(imageMen);
+      }
+    });
+  }
+
+  function getFemale() {
+    axios.get("/api/item/female").then(response => {
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
-        let imageMen = items[1].Image;
-        let imageWomen = items[5].Image;
-        let imageChildren = items[0].Image;
-        setImageMen(imageMen);
+        let imageWomen = items[0].Image;
         setImageWomen(imageWomen);
+      }
+    });
+  }
+
+  function getChildren() {
+    axios.get("/api/item/children").then(response => {
+      let items = response.data;
+      for (let i = 0; i < items.length; i++) {
+        let imageChildren = items[0].Image;
         setImageChildren(imageChildren);
-        setItems(items);
       }
     });
   }
@@ -45,22 +64,22 @@ function Shop(props) {
   }
   return (
     <div>
-      <div className="row" style={{ marginRight: "0px", marginLeft: "0px" }}>
+      <div className="body" style={{ marginRight: "0px", marginLeft: "0px" }}>
         <div
           onClick={() => ShopMen()}
           onMouseEnter={() => colorToggle(!color)}
           onMouseLeave={() => colorToggle(!color)}
-          className="col xs-4"
+          className="col sm-4"
           style={{
             backgroundRepeat: "no-repeat",
             backgroundSize: "100%",
-            height: "33vw",
+            height: "50vw",
             width: "100%",
             backgroundImage: "url(" + imageMen + ")"
           }}
         >
           <div>
-            <h1 className={Styles.whiteText}>Men</h1>
+            <h1>Men</h1>
           </div>
           {color && (
             <div onClick={() => ShopMen()} className={Styles.colorToggle} />
@@ -72,15 +91,16 @@ function Shop(props) {
           onMouseEnter={() => colorToggle1(!color1)}
           onMouseLeave={() => colorToggle1(!color1)}
           style={{
+            width: "100%",
             backgroundRepeat: "no-repeat",
             backgroundSize: "100%",
-            height: "33vw",
+            height: "50vw",
             backgroundImage: "url(" + imageWomen + ")"
           }}
-          className="col xs-4"
+          className="col sm-4"
         >
           <div>
-            <h1 className={Styles.whiteText}>Women</h1>
+            <h1>Women</h1>
           </div>
           {color1 && (
             <div onClick={() => ShopWomen()} className={Styles.colorToggle} />
@@ -91,15 +111,16 @@ function Shop(props) {
           onMouseEnter={() => colorToggle2(!color2)}
           onMouseLeave={() => colorToggle2(!color2)}
           style={{
+            width: "100%",
             backgroundRepeat: "no-repeat",
-            backgroundSize: "158%",
-            height: "33vw",
+            backgroundSize: "100%",
+            height: "50vw",
             backgroundImage: "url(" + imageChildren + ")"
           }}
-          className="col xs-4"
+          className="col sm-4"
         >
           <div>
-            <h1 className={Styles.whiteText}>Children</h1>
+            <h1>Children</h1>
           </div>
           {color2 && (
             <div
@@ -109,7 +130,6 @@ function Shop(props) {
           )}
         </div>
       </div>
-      ))}
     </div>
   );
 }

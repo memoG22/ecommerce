@@ -10,8 +10,8 @@ import {
   DropdownItem
 } from "reactstrap";
 import Styles from "./Nav.module.css";
-import Careers from "./Careers";
-import Contact from "./Contact";
+// import Careers from "./Careers";
+// import Contact from "./Contact";
 import Shop from "./Shop";
 import SignIn from "./SignIn";
 import ShopMen from "./ShopMen";
@@ -22,6 +22,7 @@ import ShoppingBasket from "./ShoppingBasket";
 import SearchResults from "./SearchResults";
 
 function NavBar(props) {
+  const [searchBar, showSearchBar] = React.useState(false);
   const [dropdownOpen, toggle] = React.useState(false);
   const [searchString, setSearchString] = React.useState("");
   const [dropDown, setDropDown] = React.useState(false);
@@ -68,7 +69,7 @@ function NavBar(props) {
                   </NavLink>
                 </NavItem>
               </DropdownItem>
-              <DropdownItem>
+              {/* <DropdownItem>
                 <NavItem>
                   <NavLink to="/careers">
                     <h4 className={Styles.whiteText}>Careers</h4>
@@ -81,7 +82,7 @@ function NavBar(props) {
                     <h4 className={Styles.whiteText}>Contact</h4>
                   </NavLink>
                 </NavItem>
-              </DropdownItem>
+              </DropdownItem> */}
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -116,21 +117,47 @@ function NavBar(props) {
             </NavLink>
           </NavItem>
         </div>
-        <div className="col sm-3">
+        {/* <div className="col sm-3">
           <NavItem>
             <NavLink to="/careers">
               <h1 className={Styles.whiteTextandCenter}>Careers</h1>
             </NavLink>
           </NavItem>
-        </div>
-        <div className="col sm-3">
+        </div> 
+         <div className="col sm-3">
           <NavItem>
             <NavLink to="/contact">
               <h1 className={Styles.whiteTextandCenter}>Contact</h1>
             </NavLink>
           </NavItem>
+        </div> */}
+        <div className="searchbarMobile">
+          <NavItem>
+            <div
+              onClick={() => showSearchBar(!searchBar)}
+              style={{ color: "white" }}
+              className="fa fa-search fa-4x"
+            />
+            {searchBar && (
+              <div>
+                <input
+                  onChange={e => setSearchString(e.target.value)}
+                  value={searchString}
+                  placeholder="Search"
+                  type="text"
+                />
+                <NavLink
+                  onClick={() => showSearchBar(!searchBar)}
+                  to="/searchresults"
+                >
+                  <button onClick={handleSearch}>Search</button>
+                </NavLink>
+              </div>
+            )}
+          </NavItem>
         </div>
-        <div className="col sm-4">
+
+        <div className={Styles.searchBar}>
           <NavItem className={Styles.textRight}>
             <div
               style={{
@@ -164,8 +191,8 @@ function NavBar(props) {
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/shoppingbasket" component={ShoppingBasket} />
         <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/careers" component={Careers} />
-        <Route exact path="/contact" component={Contact} />
+        {/* <Route exact path="/careers" component={Careers} /> */}
+        {/* <Route exact path="/contact" component={Contact} /> */}
         <Route exact path="/shop/men" component={ShopMen} />
         <Route exact path="/shop/women" component={ShopWomen} />
         <Route exact path="/shop/children" component={ShopChildren} />

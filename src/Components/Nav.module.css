@@ -22,6 +22,16 @@
      opacity: 0.5
 }
 
+.checkout {
+    margin-left:90%;
+
+}
+
+.body {
+    
+    grid-area: main
+}
+
 .whiteTextandCenter {
     width:100%;
     color:white;
@@ -43,6 +53,10 @@
 .textLeft {
     color:white;
     text-align: left
+}
+
+.col {
+    border: white
 }
 
 .navBar {
@@ -84,7 +98,33 @@
     background-attachment: fixed;
 }
 
-@media only screen and (min-width:1024px) {
+
+
+.searchBar {
+
+    display:"col sm-4",
+}
+
+@media only screen and (max-width:1025px) {
+    [class*="checkout"] {
+    margin-left:70%
+    }
+}
+
+@media only screen and (min-width:1025px) {
+    [class*="searchbarMobile"] {
+        display: none
+    }
+}
+
+@media only screen and (max-width:1025px) {
+    [class*="searchBar"] {
+        display:none
+    }
+}
+
+
+@media only screen and (min-width:1025px) {
 
     [class*="col sm-2"] {
         
@@ -102,5 +142,11 @@
     [class*="col sm-4"] {
         width:100vw
     } 
+ }
+
+ @media only screen and (min-width:1025px) {
+     [class*="carousel"] {
+         width:50%
+     }
  }
  
