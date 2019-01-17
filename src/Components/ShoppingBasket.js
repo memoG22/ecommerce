@@ -10,6 +10,7 @@ function ShoppingBasket(props) {
   const [lastname, setLastname] = React.useState("");
   const [isOpen, toggleModal] = React.useState(false);
   const [totalPrice, setTotalPrice] = React.useState("");
+  const [isEmpty, setNotEmpty] = React.useState(true);
 
   React.useEffect(() => {
     appendItems();
@@ -19,6 +20,14 @@ function ShoppingBasket(props) {
     let items = props.shoppingCart;
     setItems(items);
     calculateTotal(items);
+    ifEmpty(items);
+  }
+
+  function ifEmpty(items) {
+    if (items.length >= 1) {
+      setNotEmpty(false);
+      return 0;
+    }
   }
 
   function ifZero(int) {
@@ -52,6 +61,11 @@ function ShoppingBasket(props) {
           <h1 className={Styles.textCenter}>Your Items</h1>
         </div>
       </div>
+      {isEmpty && (
+        <div className={Styles.textCenter}>
+          You have no items in your shopping cart
+        </div>
+      )}
       <div>
         <div className={Styles.checkout}>
           <div>

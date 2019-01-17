@@ -1,9 +1,8 @@
 import React from "react";
 import Styles from "./Nav.module.css";
 import axios from "axios";
-import { Route, NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button } from "reactstrap";
 
 function ShopChildren(props) {
   const [items, setItems] = React.useState([]);

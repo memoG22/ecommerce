@@ -2,10 +2,13 @@ import React from "react";
 import Styles from "./Nav.module.css";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 function SearchResults(props) {
+  const [isOpen, toggleModal] = React.useState(false);
   const [searchItems, setSearchItems] = React.useState([]);
   const [nullView, setNullView] = React.useState(false);
+  const [viewItem, setViewItem] = React.useState([]);
 
   React.useEffect(() => {
     appendItems();
@@ -29,6 +32,12 @@ function SearchResults(props) {
     props.setShoppingCart([...props.shoppingCart, item]);
   }
 
+  function imageClick(item) {
+    console.log(item);
+    setViewItem(item);
+    toggleModal(!isOpen);
+  }
+
   return (
     <React.Fragment>
       {!nullView && (
@@ -45,15 +54,14 @@ function SearchResults(props) {
           {searchItems.map(item => (
             <div key={item.Id} className="col sm-4">
               <ul>
-                <div style={{ width: "20vw", height: "20vh" }}>
-                  <img
-                    width={"100%"}
-                    height={"100%"}
-                    style={{ width: "100%", height: "100%" }}
-                    src={item.Image}
-                    alt="no image"
-                  />
-                </div>
+                <img
+                  onClick={() => imageClick(item)}
+                  width={"100%"}
+                  height={"100%"}
+                  style={{ width: "100%", height: "100%" }}
+                  src={item.Image}
+                  alt="no image"
+                />
                 <br />
                 <div>
                   <b>{item.Name}</b>
@@ -73,6 +81,37 @@ function SearchResults(props) {
           ))}
         </div>
       )}
+
+      <Modal isOpen={isOpen}>
+        <ModalBody>
+          <Button color="danger" onClick={() => toggleModal(!isOpen)}>
+            X
+          </Button>
+          <div>
+            <ul>
+              <img
+                width={"100%"}
+                height={"100%"}
+                style={{ width: "100%", height: "100%" }}
+                src={viewItem.Image}
+                alt="no image"
+              />
+              <br />
+              <div>
+                <b>{viewItem.Name}</b>
+              </div>
+              <br />
+              <div> $ {viewItem.Price}</div>
+              <br />
+              <div>{viewItem.Description}</div>
+              <Button onClick={() => addToShopcart(viewItem)} color="primary">
+                Add to Shopping Cart
+              </Button>
+            </ul>
+          </div>
+        </ModalBody>
+        <ModalFooter />
+      </Modal>
     </React.Fragment>
   );
 }

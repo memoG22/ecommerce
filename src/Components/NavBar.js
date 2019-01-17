@@ -20,11 +20,12 @@ import ShopChildren from "./ShopChildren";
 import Home from "./Home";
 import ShoppingBasket from "./ShoppingBasket";
 import SearchResults from "./SearchResults";
+import AdminView from "./AdminView";
 
 function NavBar(props) {
   const [searchBar, showSearchBar] = React.useState(false);
   const [dropdownOpen, toggle] = React.useState(false);
-  const [searchString, setSearchString] = React.useState("");
+  const [searchString, setSearchString] = React.useState("men");
   const [dropDown, setDropDown] = React.useState(false);
   const [search, setSearchResults] = React.useState([]);
 
@@ -199,6 +200,7 @@ function NavBar(props) {
         <Route exact path="/home" component={Home} />
         <Route exact path="" component={Home} />
         <Route exact path="/searchresults" component={SearchResults} />
+        <Route exact path="/adminview" component={AdminView} />
       </div>
     </div>
   );

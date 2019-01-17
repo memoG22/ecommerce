@@ -24,38 +24,18 @@ function Home() {
       }
     });
   }
-  console.log(items.Image);
-  return (
-    <div className="body">
-      <div className="col xs-4">
-        <h1 className={Styles.textCenter}>Home</h1>
-      </div>
-      <div className="row" style={{ display: "block" }}>
-        <div
-          className="col sm-4"
-          style={{
-            backgroundSize: "100%",
-            width: "100%",
-            backgroundRepeat: "no-repeat",
-            height: "33vh",
-            backgroundImage: "url(" + image1 + ")"
-          }}
-        />
 
-        <div className={Styles.carousel} style={{ height: "50%" }}>
-          <Carousel items={items} />
-        </div>
-        <div
-          className="col sm-4"
-          style={{
-            width: "100%",
-            backgroundSize: "100%",
-            backgroundRepeat: "no-repeat",
-            height: "33vh",
-            backgroundImage: "url(" + image2 + ")"
-          }}
-        />
-      </div>
+  return (
+    <div>
+      <div
+        style={{
+          backgroundRepeat: "no-repeat",
+
+          width: "100vw",
+          height: "100vw",
+          backgroundImage: "url(" + image1 + ")"
+        }}
+      />
     </div>
   );
 }

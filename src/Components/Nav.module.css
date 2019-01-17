@@ -27,10 +27,7 @@
 
 }
 
-.body {
-    
-    grid-area: main
-}
+
 
 .whiteTextandCenter {
     width:100%;
@@ -144,9 +141,15 @@
     } 
  }
 
- @media only screen and (min-width:1025px) {
+ /* @media only screen and (min-width:1025px) {
      [class*="carousel"] {
          width:50%
      }
+ } */
+
+ .cursor {
+     cursor : pointer
  }
+
+
  

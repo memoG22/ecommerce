@@ -1,9 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Styles from "./Nav.module.css";
-import MStyles from "./Shop.module.css";
-import Carousel from "../Shared/Carousel";
-import { Route, NavLink, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 function Shop(props) {
   const [color, colorToggle] = React.useState(false);
@@ -13,12 +11,22 @@ function Shop(props) {
   const [imageMen, setImageMen] = React.useState("");
   const [imageWomen, setImageWomen] = React.useState("");
   const [imageChildren, setImageChildren] = React.useState("");
+  const [result, setResult] = React.useState("");
 
   React.useEffect(() => {
     getMale();
     getFemale();
     getChildren();
   }, []);
+
+  function getId() {
+    let Id = 1026;
+    axios.get("/api/currentuser/" + Id).then(response => {
+      let items = response;
+      setItems(items);
+      console.log("Id" + items);
+    });
+  }
 
   function getMale() {
     axios.get("/api/item/male").then(response => {
@@ -62,9 +70,20 @@ function Shop(props) {
   function ShopChildren() {
     props.history.push("/shop/children");
   }
+
+  function testMethod(o) {
+    let str = new RegExp("easy");
+    let result = str.exec(o);
+    console.log(result);
+    return;
+  }
+
   return (
     <div>
       <div className="body" style={{ marginRight: "0px", marginLeft: "0px" }}>
+        <div>
+          <button onClick={getId}>get Id Test</button>
+        </div>
         <div
           onClick={() => ShopMen()}
           onMouseEnter={() => colorToggle(!color)}
