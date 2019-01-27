@@ -1,16 +1,19 @@
 import React from "react";
-import Styles from "./Nav.module.css";
+import Styles from "./Css/Nav.module.css";
 import { connect } from "react-redux";
 import { Button, Modal, ModalBody } from "reactstrap";
+import ItemModal from "../Shared/ItemModal";
 
 function ShoppingBasket(props) {
   const [items, setItems] = React.useState([]);
   const [creditCard, setCreditCard] = React.useState("");
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
-  const [isOpen, toggleModal] = React.useState(false);
+  const [isCheckoutOpen, toggleCheckoutModal] = React.useState(false);
   const [totalPrice, setTotalPrice] = React.useState("");
   const [isEmpty, setNotEmpty] = React.useState(true);
+  const [isOpen, toggleViewModal] = React.useState(false);
+  const [viewItem, setViewItem] = React.useState([]);
 
   React.useEffect(() => {
     appendItems();
@@ -54,6 +57,12 @@ function ShoppingBasket(props) {
     setTotalPrice(totalPrice);
   }
 
+  function imageClick(item) {
+    console.log("modal");
+    setViewItem(item);
+    toggleViewModal(!isOpen);
+  }
+
   return (
     <div>
       <div className="row">
@@ -71,19 +80,23 @@ function ShoppingBasket(props) {
           <div>
             <b>Total</b> $ {ifZero(totalPrice)}
             <br />
-            <Button onClick={() => toggleModal(!isOpen)} color="primary">
+            <Button
+              onClick={() => toggleCheckoutModal(!isCheckoutOpen)}
+              color="primary"
+            >
               Check out
             </Button>
           </div>
         </div>
       </div>
-      <div clasname="row" style={{ display: "inline-flex" }}>
+      <div className="row" style={{ display: "inline-flex" }}>
         {items.map(item => (
           <div key={item.Id} className="col sm-4">
             <div>
               <ul>
                 <div style={{ width: "20vw", height: "20vh" }}>
                   <img
+                    onClick={() => imageClick(item)}
                     width={"100%"}
                     height={"100%"}
                     style={{ width: "100%", height: "100%" }}
@@ -109,10 +122,10 @@ function ShoppingBasket(props) {
         ))}
       </div>
       <div>
-        <Modal isOpen={isOpen}>
+        <Modal isOpen={isCheckoutOpen}>
           <Button
             style={{ backgroundColor: "red" }}
-            onClick={() => toggleModal(!isOpen)}
+            onClick={() => toggleCheckoutModal(!isCheckoutOpen)}
           >
             X
           </Button>
@@ -146,13 +159,22 @@ function ShoppingBasket(props) {
             <br />
             <Button
               style={{ backgroundColor: "primary" }}
-              onClick={() => toggleModal(!isOpen)}
+              onClick={() => toggleCheckoutModal(!isOpen)}
             >
               Buy
             </Button>
           </ModalBody>
         </Modal>
       </div>
+      {isOpen && (
+        <div>
+          <ItemModal
+            isOpen={isOpen}
+            viewItem={viewItem}
+            toggleModal={toggleViewModal}
+          />
+        </div>
+      )}
     </div>
   );
 }

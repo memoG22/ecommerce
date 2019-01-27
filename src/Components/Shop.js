@@ -1,17 +1,18 @@
 import React from "react";
 import axios from "axios";
-import Styles from "./Nav.module.css";
+import Styles from "./Css/Nav.module.css";
 import { withRouter } from "react-router-dom";
 
 function Shop(props) {
-  const [color, colorToggle] = React.useState(false);
-  const [color1, colorToggle1] = React.useState(false);
-  const [color2, colorToggle2] = React.useState(false);
   const [items, setItems] = React.useState([]);
   const [imageMen, setImageMen] = React.useState("");
+  const [imageMen1, setImageMen1] = React.useState("");
+
   const [imageWomen, setImageWomen] = React.useState("");
+  const [imageWomen1, setImageWomen1] = React.useState("");
+
   const [imageChildren, setImageChildren] = React.useState("");
-  const [result, setResult] = React.useState("");
+  const [imageChildren1, setImageChildren1] = React.useState("");
 
   React.useEffect(() => {
     getMale();
@@ -19,22 +20,16 @@ function Shop(props) {
     getChildren();
   }, []);
 
-  function getId() {
-    let Id = 1026;
-    axios.get("/api/currentuser/" + Id).then(response => {
-      let items = response;
-      setItems(items);
-      console.log("Id" + items);
-    });
-  }
-
   function getMale() {
     axios.get("/api/item/male").then(response => {
       let items = response.data;
       console.log(items);
       for (let i = 0; i < items.length; i++) {
         let imageMen = items[0].Image;
+        let imageMen1 = items[0].Image;
+
         setImageMen(imageMen);
+        setImageMen1(imageMen1);
       }
     });
   }
@@ -44,7 +39,10 @@ function Shop(props) {
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
         let imageWomen = items[0].Image;
+        let imageWomen1 = items[2].Image;
+
         setImageWomen(imageWomen);
+        setImageWomen1(imageWomen1);
       }
     });
   }
@@ -54,7 +52,10 @@ function Shop(props) {
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
         let imageChildren = items[0].Image;
+        let imageChildren1 = items[1].Image;
+
         setImageChildren(imageChildren);
+        setImageChildren1(imageChildren1);
       }
     });
   }
@@ -79,75 +80,62 @@ function Shop(props) {
   }
 
   return (
-    <div>
-      <div className="body" style={{ marginRight: "0px", marginLeft: "0px" }}>
-        <div>
-          <button onClick={getId}>get Id Test</button>
-        </div>
-        <div
-          onClick={() => ShopMen()}
-          onMouseEnter={() => colorToggle(!color)}
-          onMouseLeave={() => colorToggle(!color)}
-          className="col sm-4"
-          style={{
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100%",
-            height: "50vw",
-            width: "100%",
-            backgroundImage: "url(" + imageMen + ")"
-          }}
-        >
-          <div>
-            <h1>Men</h1>
-          </div>
-          {color && (
-            <div onClick={() => ShopMen()} className={Styles.colorToggle} />
-          )}
-        </div>
+    <div className={Styles.gridContainer}>
+      <div
+        onClick={() => ShopMen()}
+        className={Styles.grid}
+        style={{
+          backgroundImage: "url(" + imageMen + ")"
+        }}
+      >
+        <h1>Men</h1>
+      </div>
 
-        <div
-          onClick={() => ShopWomen()}
-          onMouseEnter={() => colorToggle1(!color1)}
-          onMouseLeave={() => colorToggle1(!color1)}
-          style={{
-            width: "100%",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100%",
-            height: "50vw",
-            backgroundImage: "url(" + imageWomen + ")"
-          }}
-          className="col sm-4"
-        >
-          <div>
-            <h1>Women</h1>
-          </div>
-          {color1 && (
-            <div onClick={() => ShopWomen()} className={Styles.colorToggle} />
-          )}
-        </div>
-        <div
-          onClick={() => ShopChildren()}
-          onMouseEnter={() => colorToggle2(!color2)}
-          onMouseLeave={() => colorToggle2(!color2)}
-          style={{
-            width: "100%",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100%",
-            height: "50vw",
-            backgroundImage: "url(" + imageChildren + ")"
-          }}
-          className="col sm-4"
-        >
-          <div>
-            <h1>Children</h1>
-          </div>
-          {color2 && (
-            <div
-              onClick={() => ShopChildren()}
-              className={Styles.colorToggle}
-            />
-          )}
-        </div>
+      <div
+        onClick={() => ShopWomen()}
+        className={Styles.grid}
+        style={{
+          backgroundImage: "url(" + imageWomen + ")"
+        }}
+      >
+        <h1>Women</h1>
+      </div>
+      <div
+        onClick={() => ShopChildren()}
+        className={Styles.grid}
+        style={{
+          backgroundImage: "url(" + imageChildren + ")"
+        }}
+      >
+        <h1>Children</h1>
+      </div>
+      <div
+        onClick={() => ShopMen()}
+        className={Styles.grid}
+        style={{
+          backgroundImage: "url(" + imageMen1 + ")"
+        }}
+      >
+        <h1>Men</h1>
+      </div>
+
+      <div
+        onClick={() => ShopWomen()}
+        className={Styles.grid}
+        style={{
+          backgroundImage: "url(" + imageWomen1 + ")"
+        }}
+      >
+        <h1>Women</h1>
+      </div>
+      <div
+        onClick={() => ShopChildren()}
+        className={Styles.grid}
+        style={{
+          backgroundImage: "url(" + imageChildren1 + ")"
+        }}
+      >
+        <h1>Children</h1>
       </div>
     </div>
   );

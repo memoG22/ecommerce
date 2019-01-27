@@ -9,9 +9,8 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import Styles from "./Nav.module.css";
-// import Careers from "./Careers";
-// import Contact from "./Contact";
+import Styles from "./Css/Nav.module.css";
+
 import Shop from "./Shop";
 import SignIn from "./SignIn";
 import ShopMen from "./ShopMen";
@@ -21,6 +20,7 @@ import Home from "./Home";
 import ShoppingBasket from "./ShoppingBasket";
 import SearchResults from "./SearchResults";
 import AdminView from "./AdminView";
+import Unregistered from "./Unregisterd";
 
 function NavBar(props) {
   const [searchBar, showSearchBar] = React.useState(false);
@@ -70,20 +70,6 @@ function NavBar(props) {
                   </NavLink>
                 </NavItem>
               </DropdownItem>
-              {/* <DropdownItem>
-                <NavItem>
-                  <NavLink to="/careers">
-                    <h4 className={Styles.whiteText}>Careers</h4>
-                  </NavLink>
-                </NavItem>
-              </DropdownItem>
-              <DropdownItem>
-                <NavItem>
-                  <NavLink to="/contact">
-                    <h4 className={Styles.whiteText}>Contact</h4>
-                  </NavLink>
-                </NavItem>
-              </DropdownItem> */}
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -118,20 +104,7 @@ function NavBar(props) {
             </NavLink>
           </NavItem>
         </div>
-        {/* <div className="col sm-3">
-          <NavItem>
-            <NavLink to="/careers">
-              <h1 className={Styles.whiteTextandCenter}>Careers</h1>
-            </NavLink>
-          </NavItem>
-        </div> 
-         <div className="col sm-3">
-          <NavItem>
-            <NavLink to="/contact">
-              <h1 className={Styles.whiteTextandCenter}>Contact</h1>
-            </NavLink>
-          </NavItem>
-        </div> */}
+
         <div className="searchbarMobile">
           <NavItem>
             <div

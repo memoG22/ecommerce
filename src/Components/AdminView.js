@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "axios";
-import Styles from "./Nav.module.css";
+import { connect } from "react-redux";
+import Styles from "./Css/Nav.module.css";
 import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 function AdminView(props) {
+  const [user, setUser] = React.useState([]);
   const [isOpen, toggleModal] = React.useState(false);
   const [editisOpen, edittoggleModal] = React.useState(false);
   const [Name, setProductName] = React.useState("");
@@ -14,9 +16,6 @@ function AdminView(props) {
   const [ItemType, setProductItemType] = React.useState("");
   const [Description, setDescription] = React.useState("");
   const [items, setItems] = React.useState([]);
-  const [email, setEmail] = React.useState("me@email.com");
-  const [password, setPassword] = React.useState("password123");
-  const [loginTrue, setLoginSuccessful] = React.useState(false);
   const [editItem, setEditItem] = React.useState([]);
 
   function postImages() {
@@ -50,6 +49,8 @@ function AdminView(props) {
       let items = response.data;
       for (let i = 0; i < items.length; i++) {
         setItems(items);
+        let user = props.user;
+        setUser(user);
       }
     });
   }
@@ -67,6 +68,7 @@ function AdminView(props) {
   }
 
   function editClick(item) {
+    let editItem = item;
     setProductName(item.Name);
     setProductImage(item.Image);
     setProductSize(item.Size);
@@ -75,7 +77,6 @@ function AdminView(props) {
     setProductAgeGroup(item.AgeGroup);
     setProductPrice(item.Price);
     setDescription(item.Description);
-    let editItem = item;
     setEditItem(editItem);
     edittoggleModal(!editisOpen);
   }
@@ -117,8 +118,18 @@ function AdminView(props) {
     }
   }
 
+  function logout() {
+    axios.post("/api/logout").then(response => {
+      alert("You are now logged out");
+      props.history.push("/signin");
+    });
+  }
+
   return (
     <div>
+      <div>
+        <h1>Welcome {props.user.Email}</h1>
+      </div>
       <div className="row">
         <div className={Styles.textLeft}>
           <Button
@@ -128,6 +139,14 @@ function AdminView(props) {
             onClick={() => toggleModal(!isOpen)}
           >
             Upload
+          </Button>
+          <Button
+            style={{ height: "10vh", width: "20vw", marginBottom: "15%" }}
+            color="primary"
+            type="button"
+            onClick={() => logout()}
+          >
+            Logout
           </Button>
         </div>
       </div>
@@ -147,108 +166,101 @@ function AdminView(props) {
           </div>
         </div>
       </div>
-      <div />
       <div>
         <Modal isOpen={isOpen}>
-          <Button
-            style={{ backgroundColor: "red" }}
-            onClick={() => toggleModal(!isOpen)}
-          >
+          <Button color="danger" onClick={() => toggleModal(!isOpen)}>
             X
           </Button>
+          Name of product:
+          <br />
+          <input
+            type="text"
+            placeholder="Name"
+            value={Name}
+            onChange={e => setProductName(e.target.value)}
+          />
+          <br />
+          Product Price:
+          <br />
+          <input
+            type="number"
+            placeholder="Price"
+            value={Price}
+            onChange={e => setProductPrice(e.target.value)}
+          />
+          <br />
+          Paste Image URL:
+          <br />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={Image}
+            break
+            onChange={e => setProductImage(e.target.value)}
+          />
+          <br />
+          Description:
+          <br />
+          <input
+            type="text"
+            placeholder="Description"
+            value={Description}
+            break
+            onChange={e => setDescription(e.target.value)}
+          />
+          <br />
+          Gender:
+          <br />
+          <select
+            value={Gender}
+            onChange={e => setProductGender(e.target.value)}
+          >
+            <option>Please Select</option>
 
-          <ModalBody>
-            Name of product:
+            <option value="1">Male</option>
+            <option value="2">Female</option>
             <br />
-            <input
-              type="text"
-              placeholder="Name"
-              value={Name}
-              onChange={e => setProductName(e.target.value)}
-            />
-            <br />
-            Product Price:
-            <br />
-            <input
-              type="number"
-              placeholder="Price"
-              value={Price}
-              onChange={e => setProductPrice(e.target.value)}
-            />
-            <br />
-            Paste Image URL:
-            <br />
-            <input
-              type="text"
-              placeholder="Image URL"
-              value={Image}
-              break
-              onChange={e => setProductImage(e.target.value)}
-            />
-            <br />
-            Description:
-            <br />
-            <input
-              type="text"
-              placeholder="Description"
-              value={Description}
-              break
-              onChange={e => setDescription(e.target.value)}
-            />
-            <br />
-            Gender:
-            <br />
-            <select
-              value={Gender}
-              onChange={e => setProductGender(e.target.value)}
-            >
-              <option>Please Select</option>
+          </select>
+          <br />
+          Age group:
+          <br />
+          <select
+            value={AgeGroup}
+            onChange={e => setProductAgeGroup(e.target.value)}
+          >
+            <option>Please Select</option>
 
-              <option value="1">Male</option>
-              <option value="2">Female</option>
-              <br />
-            </select>
-            <br />
-            Age group:
-            <br />
-            <select
-              value={AgeGroup}
-              onChange={e => setProductAgeGroup(e.target.value)}
-            >
-              <option>Please Select</option>
+            <option value="1">Adult</option>
+            <option value="2">Teen</option>
+            <option value="3">Child</option>
+          </select>
+          <br />
+          Size:
+          <br />
+          <select value={Size} onChange={e => setProductSize(e.target.value)}>
+            <option>Please Select</option>
 
-              <option value="1">Adult</option>
-              <option value="2">Teen</option>
-              <option value="3">Child</option>
-            </select>
-            <br />
-            Size:
-            <br />
-            <select value={Size} onChange={e => setProductSize(e.target.value)}>
-              <option>Please Select</option>
+            <option value="1">Extra Small</option>
+            <option value="2">Small</option>
+            <option value="3">Medium</option>
+            <option value="4">Large</option>
+            <option value="5">Extra Large</option>
+            <option value="6">XXl</option>
+          </select>
+          <br />
+          Item Type:
+          <br />
+          <select
+            value={ItemType}
+            onChange={e => setProductItemType(e.target.value)}
+          >
+            <option>Please Select</option>
 
-              <option value="1">Extra Small</option>
-              <option value="2">Small</option>
-              <option value="3">Medium</option>
-              <option value="4">Large</option>
-              <option value="5">Extra Large</option>
-              <option value="6">XXl</option>
-            </select>
-            <br />
-            Item Type:
-            <br />
-            <select
-              value={ItemType}
-              onChange={e => setProductItemType(e.target.value)}
-            >
-              <option>Please Select</option>
-
-              <option value="1">Top</option>
-              <option value="2">Pants</option>
-              <option value="3">Shoes</option>
-              <option value="4">Accessories</option>
-            </select>
-          </ModalBody>
+            <option value="1">Top</option>
+            <option value="2">Pants</option>
+            <option value="3">Shoes</option>
+            <option value="4">Accessories</option>
+          </select>
           <ModalFooter>
             <button onClick={() => postImages()}>Submit</button>
           </ModalFooter>
@@ -264,18 +276,21 @@ function AdminView(props) {
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row" style={{ display: "inline-flex" }}>
         {items.map(item => (
           <div key={item.Id} className="col sm-4">
-            <ul>
-              <div>
-                <img
-                  width={"100%"}
-                  height={"100%"}
-                  style={{ width: "100%", height: "100%" }}
-                  src={item.Image}
-                  alt="no image"
-                />
+            <div>
+              <ul>
+                <div style={{ width: "20vw", height: "20vh" }}>
+                  <img
+                    width={"100%"}
+                    height={"100%"}
+                    style={{ width: "100%", height: "100%" }}
+                    src={item.Image}
+                    alt="no image"
+                  />
+                </div>
+
                 <div>
                   <Button onClick={() => deleteItem(item)} color="danger">
                     Delete Item
@@ -287,8 +302,8 @@ function AdminView(props) {
                     Edit Item
                   </Button>
                 </div>
-              </div>
-            </ul>
+              </ul>
+            </div>
           </div>
         ))}
       </div>
@@ -406,4 +421,10 @@ function AdminView(props) {
   );
 }
 
-export default AdminView;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+export default connect(mapStateToProps)(AdminView);

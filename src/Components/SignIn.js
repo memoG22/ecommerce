@@ -1,48 +1,59 @@
 import React from "react";
 import axios from "axios";
-import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import Styles from "./Nav.module.css";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { Modal, ModalHeader, Button, ModalBody, ModalFooter } from "reactstrap";
+import Styles from "./Css/Nav.module.css";
 
 function SignIn(props) {
+  const [createEmail, setCreateEmail] = React.useState("new@email.com");
+  const [createPassword, setCreatePassword] = React.useState("password123");
   const [email, setEmail] = React.useState("me@email.com");
   const [password, setPassword] = React.useState("password123");
+  const [isOpen, toggleModal] = React.useState(false);
   const [create, setCreate] = React.useState(false);
 
   function register() {
     const payload = {
-      email,
-      passwordHash: password
+      email: createEmail,
+      passwordHash: createPassword
     };
-    console.log(payload);
 
     axios
       .post("/api/create/user", payload)
       .then(response => {
         alert("create was successful");
-        loginSuccessful();
       })
       .catch(response => {
         console.log(response);
-        alert("Please fill in all fields");
+        alert(response);
       });
+  }
+
+  function getCurrentUser() {
+    axios.get("/api/currentuser").then(response => {
+      console.log(response);
+    });
   }
 
   function login() {
     const payload = {
       email,
-      passwordHash: password
+      password
     };
-    console.log(payload);
 
     axios
       .post("/api/login", payload)
       .then(response => {
-        console.log(response);
+        let user = response.data;
+        console.log(user);
         alert("login was successful");
+        getCurrentUser();
         loginSuccessful();
+        props.setUser(user);
       })
       .catch(response => {
-        alert(response);
+        alert("Invalid username or password");
       });
   }
 
@@ -52,20 +63,10 @@ function SignIn(props) {
 
   return (
     <div>
-      <div className="row">
-        <div className="col sm-4">
-          <div className={Styles.textCenter}>
-            <h1>Upload Your products</h1>
-          </div>
-        </div>
-      </div>
-      <div onClick={() => setCreate(!create)}>
-        <button onC>Create Account</button>
-      </div>
-      <div className="row">
+      <div>
         <div className="col sm-4">
           <div>
-            <h1>Create an account</h1>
+            <h1>Login</h1>
           </div>
           Email:
           <input
@@ -80,34 +81,57 @@ function SignIn(props) {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
-          <button onClick={() => register()}>Register</button>
+          <button onClick={() => login()}>Login</button>
         </div>
+        <div>
+          <h3>Don't have an account? Sign Up here</h3>
+          <Button onClick={() => toggleModal(!isOpen)} color="primary">
+            Create Account
+          </Button>
+        </div>
+        <div onClick={() => setCreate(!create)} />
       </div>
-      <div className={Styles.textRight}>
-        <div className="row">
-          <div className="col sm-4">
-            <div>
-              <h1>Login</h1>
-            </div>
-            Email:
-            <input
-              type="text"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-            <br />
-            Password:
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-            <button onClick={() => login()}>Login</button>
-          </div>
-        </div>
+
+      <div>
+        <Modal isOpen={isOpen}>
+          <Button color="danger" onClick={() => toggleModal(!isOpen)}>
+            X
+          </Button>
+          <ModalHeader>
+            <h1>Create an account</h1>
+          </ModalHeader>
+          Email:
+          <input
+            type="text"
+            value={createEmail}
+            onChange={e => setCreateEmail(e.target.value)}
+          />
+          <br />
+          Password:
+          <input
+            type="password"
+            value={createPassword}
+            onChange={e => setCreatePassword(e.target.value)}
+          />
+          <button onClick={() => register()}>Register</button>
+        </Modal>
       </div>
     </div>
   );
 }
 
-export default SignIn;
+function mapDispatchToProps(dispatch) {
+  return {
+    setUser: user =>
+      dispatch({
+        type: "SET_USER",
+        user
+      })
+  };
+}
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(SignIn)
+);

@@ -4,7 +4,8 @@ function reducer(state, action) {
   if (!state) {
     return {
       searchItems: [],
-      shoppingCart: []
+      shoppingCart: [],
+      user: []
     };
   }
   if (action.type === "SET_SEARCHRESULTS") {
@@ -17,6 +18,13 @@ function reducer(state, action) {
     return {
       ...state,
       shoppingCart: action.shoppingCart
+    };
+  }
+
+  if (action.type === "SET_USER") {
+    return {
+      ...state,
+      user: action.user
     };
   }
 }

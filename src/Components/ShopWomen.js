@@ -1,8 +1,7 @@
 import React from "react";
-import Styles from "./Nav.module.css";
+import Styles from "./Css/Nav.module.css";
 import axios from "axios";
 import { connect } from "react-redux";
-import { Route, NavLink, withRouter } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 function ShopWomen(props) {

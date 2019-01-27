@@ -1,8 +1,8 @@
 import React from "react";
-import Styles from "./Nav.module.css";
+import Styles from "./Css/Nav.module.css";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalBody, ModalFooter } from "reactstrap";
 
 function SearchResults(props) {
   const [isOpen, toggleModal] = React.useState(false);
@@ -33,7 +33,6 @@ function SearchResults(props) {
   }
 
   function imageClick(item) {
-    console.log(item);
     setViewItem(item);
     toggleModal(!isOpen);
   }
@@ -49,44 +48,50 @@ function SearchResults(props) {
           </div>
         </div>
       )}
+
       {nullView && (
         <div className="row">
           {searchItems.map(item => (
             <div key={item.Id} className="col sm-4">
-              <ul>
-                <img
-                  onClick={() => imageClick(item)}
-                  width={"100%"}
-                  height={"100%"}
-                  style={{ width: "100%", height: "100%" }}
-                  src={item.Image}
-                  alt="no image"
-                />
-                <br />
-                <div>
-                  <b>{item.Name}</b>
-                </div>
-                <br />
-                <div>
-                  <b>Price:</b> ${item.Price}
-                </div>
-                <br />
-                <div>
+              <div>
+                <ul>
+                  <div style={{ width: "20vw", height: "20vh" }}>
+                    <img
+                      onClick={() => imageClick(item)}
+                      width={"100%"}
+                      height={"100%"}
+                      style={{ width: "100%", height: "100%" }}
+                      src={item.Image}
+                      alt="no image"
+                    />
+                  </div>
+
+                  <br />
+                  <div>
+                    <b>{item.Name}</b>
+                  </div>
+                  <br />
+                  <div>
+                    <b>Price:</b> ${item.Price}
+                  </div>
+                  <br />
+                  <div />
+
                   <Button onClick={() => addToShopcart(item)} color="primary">
                     Add to Shopping Cart
                   </Button>
-                </div>
-              </ul>
+                </ul>
+              </div>
             </div>
           ))}
         </div>
       )}
 
       <Modal isOpen={isOpen}>
+        <Button color="danger" onClick={() => toggleModal(!isOpen)}>
+          X
+        </Button>
         <ModalBody>
-          <Button color="danger" onClick={() => toggleModal(!isOpen)}>
-            X
-          </Button>
           <div>
             <ul>
               <img
