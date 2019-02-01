@@ -18,7 +18,7 @@ function ItemModal(props) {
                 height={"100%"}
                 style={{ width: "100%", height: "100%" }}
                 src={props.viewItem.Image}
-                alt="no image"
+                alt="none"
               />
               <br />
               <div>

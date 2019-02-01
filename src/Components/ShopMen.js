@@ -42,7 +42,7 @@ function ShopMen(props) {
                     height={"100%"}
                     style={{ width: "100%", height: "100%" }}
                     src={item.Image}
-                    alt="no image"
+                    alt="none"
                   />
                 </div>
                 <br />

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import Styles from "./Css/Nav.module.css";
 import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 function AdminView(props) {
-  const [user, setUser] = React.useState([]);
   const [isOpen, toggleModal] = React.useState(false);
   const [editisOpen, edittoggleModal] = React.useState(false);
   const [Name, setProductName] = React.useState("");
@@ -15,8 +14,11 @@ function AdminView(props) {
   const [Size, setProductSize] = React.useState("");
   const [ItemType, setProductItemType] = React.useState("");
   const [Description, setDescription] = React.useState("");
-  const [items, setItems] = React.useState([]);
   const [editItem, setEditItem] = React.useState([]);
+  const [currentUserEmail, setCurrentUserEmail] = React.useState("");
+  const [currentUserId, setCurrentUserId] = React.useState("");
+  const [currentUserItems, setCurrentUserItems] = React.useState([]);
+  const [items, setItems] = React.useState([]);
 
   function postImages() {
     const payload = {
@@ -41,18 +43,34 @@ function AdminView(props) {
   }
 
   React.useEffect(() => {
-    getItems();
+    getCurrentUser();
   }, []);
 
-  function getItems() {
-    axios.get("/api/items").then(response => {
-      let items = response.data;
-      for (let i = 0; i < items.length; i++) {
-        setItems(items);
-        let user = props.user;
-        setUser(user);
+  function getCurrentUserList(currentUserId) {
+    axios.get("api/getorder/" + currentUserId).then(response => {
+      let order = response.data;
+      for (let i = 0; i < order.length; i++) {
+        axios.get("/api/getitem/" + order[i].ItemId).then(response => {
+          let list = response.data;
+          console.log(order);
+          // for (let j = 0; j < list.length; j++) {
+          // let items = [list[j]];
+          setItems([...items, list]);
+          setCurrentUserItems([list]);
+
+          setCurrentUserItems([...currentUserItems, ...list]);
+          // }
+        });
       }
     });
+  }
+
+  function getCurrentUser() {
+    let currentUserEmail = sessionStorage.userEmail;
+    let currentUserId = sessionStorage.userId;
+    setCurrentUserEmail(currentUserEmail);
+    setCurrentUserId(currentUserEmail);
+    getCurrentUserList(currentUserId);
   }
 
   function deleteItem(item) {
@@ -119,35 +137,46 @@ function AdminView(props) {
   }
 
   function logout() {
-    axios.post("/api/logout").then(response => {
-      alert("You are now logged out");
-      props.history.push("/signin");
-    });
+    sessionStorage.clear();
+    alert("You are now logged out");
+    props.history.push("/signin");
+    console.log("logout" + sessionStorage);
   }
 
   return (
     <div>
       <div>
-        <h1>Welcome {props.user.Email}</h1>
+        <h1>Welcome {currentUserEmail}</h1>
       </div>
       <div className="row">
-        <div className={Styles.textLeft}>
-          <Button
-            style={{ height: "10vh", width: "20vw", marginBottom: "15%" }}
-            color="primary"
-            type="button"
-            onClick={() => toggleModal(!isOpen)}
-          >
-            Upload
-          </Button>
-          <Button
-            style={{ height: "10vh", width: "20vw", marginBottom: "15%" }}
-            color="primary"
-            type="button"
-            onClick={() => logout()}
-          >
-            Logout
-          </Button>
+        <div>
+          <div className={Styles.textLeft}>
+            <Button
+              style={{
+                height: "10vh",
+                width: "20vw",
+                marginBottom: "15%"
+              }}
+              color="primary"
+              type="button"
+              onClick={() => toggleModal(!isOpen)}
+            >
+              Upload
+            </Button>
+
+            <Button
+              style={{
+                height: "10vh",
+                width: "20vw",
+                marginBottom: "15%"
+              }}
+              color="primary"
+              type="button"
+              onClick={() => logout()}
+            >
+              Logout
+            </Button>
+          </div>
         </div>
       </div>
       <div className="row">
@@ -277,7 +306,7 @@ function AdminView(props) {
         </div>
       </div>
       <div className="row" style={{ display: "inline-flex" }}>
-        {items.map(item => (
+        {currentUserItems.map(item => (
           <div key={item.Id} className="col sm-4">
             <div>
               <ul>
@@ -287,9 +316,19 @@ function AdminView(props) {
                     height={"100%"}
                     style={{ width: "100%", height: "100%" }}
                     src={item.Image}
-                    alt="no image"
+                    alt="none"
                   />
                 </div>
+                <br />
+                <div>
+                  <b>{item.Name}</b>
+                </div>
+                <br />
+                <div>
+                  <b>Price:</b> ${item.Price}
+                </div>
+                <br />
+                <div />
 
                 <div>
                   <Button onClick={() => deleteItem(item)} color="danger">

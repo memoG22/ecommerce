@@ -20,7 +20,7 @@ import Home from "./Home";
 import ShoppingBasket from "./ShoppingBasket";
 import SearchResults from "./SearchResults";
 import AdminView from "./AdminView";
-import Unregistered from "./Unregisterd";
+//import Unregistered from "./Unregisterd";
 
 function NavBar(props) {
   const [searchBar, showSearchBar] = React.useState(false);

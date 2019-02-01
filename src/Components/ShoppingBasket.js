@@ -34,7 +34,7 @@ function ShoppingBasket(props) {
   }
 
   function ifZero(int) {
-    if (int == 0) {
+    if (int === 0) {
       return 0;
     } else {
       return int;
@@ -46,7 +46,7 @@ function ShoppingBasket(props) {
     for (let val of items) {
       totalPrice += val.Price;
     }
-    if (totalPrice == 0 || totalPrice == null || totalPrice == undefined) {
+    if (totalPrice === 0 || totalPrice === null || totalPrice === undefined) {
       return;
     } else {
       appendTotal(totalPrice);

@@ -3,9 +3,9 @@ import { createStore } from "redux";
 function reducer(state, action) {
   if (!state) {
     return {
+      user: null,
       searchItems: [],
-      shoppingCart: [],
-      user: []
+      shoppingCart: []
     };
   }
   if (action.type === "SET_SEARCHRESULTS") {

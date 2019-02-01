@@ -46,10 +46,9 @@ function SignIn(props) {
       .post("/api/login", payload)
       .then(response => {
         let user = response.data;
-        console.log(user);
         alert("login was successful");
-        getCurrentUser();
-        loginSuccessful();
+        // getCurrentUser();
+        loginSuccessful(user);
         props.setUser(user);
       })
       .catch(response => {
@@ -57,8 +56,12 @@ function SignIn(props) {
       });
   }
 
-  function loginSuccessful() {
+  function loginSuccessful(user) {
+    console.log(user);
+
     props.history.push("/adminview");
+    sessionStorage.userId = user.Id;
+    sessionStorage.userEmail = user.Email;
   }
 
   return (
