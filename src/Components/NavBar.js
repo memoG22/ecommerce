@@ -29,6 +29,12 @@ function NavBar(props) {
   const [dropDown, setDropDown] = React.useState(false);
   const [search, setSearchResults] = React.useState([]);
 
+  function keyPressSearch(e) {
+    if (e.keyCode === 13) {
+      handleSearch();
+    }
+  }
+
   function handleSearch() {
     axios.get("/api/item/search?=" + searchString).then(response => {
       let search = response.data;
@@ -116,6 +122,7 @@ function NavBar(props) {
               <div>
                 <input
                   onChange={e => setSearchString(e.target.value)}
+                  onKeyUp={keyPressSearch}
                   value={searchString}
                   placeholder="Search"
                   type="text"
@@ -142,6 +149,7 @@ function NavBar(props) {
             >
               <input
                 onChange={e => setSearchString(e.target.value)}
+                onKeyUp={keyPressSearch}
                 value={searchString}
                 placeholder="Search"
                 type="text"

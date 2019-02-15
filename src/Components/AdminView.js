@@ -18,7 +18,6 @@ function AdminView(props) {
   const [currentUserEmail, setCurrentUserEmail] = React.useState("");
   const [currentUserId, setCurrentUserId] = React.useState("");
   const [currentUserItems, setCurrentUserItems] = React.useState([]);
-  const [items, setItems] = React.useState([]);
 
   function postImages() {
     const payload = {
@@ -47,21 +46,9 @@ function AdminView(props) {
   }, []);
 
   function getCurrentUserList(currentUserId) {
-    axios.get("api/getorder/" + currentUserId).then(response => {
-      let order = response.data;
-      for (let i = 0; i < order.length; i++) {
-        axios.get("/api/getitem/" + order[i].ItemId).then(response => {
-          let list = response.data;
-          console.log(order);
-          // for (let j = 0; j < list.length; j++) {
-          // let items = [list[j]];
-          setItems([...items, list]);
-          setCurrentUserItems([list]);
-
-          setCurrentUserItems([...currentUserItems, ...list]);
-          // }
-        });
-      }
+    axios.get("/api/getorder/" + currentUserId).then(response => {
+      let currentUserItems = response.data;
+      setCurrentUserItems(currentUserItems);
     });
   }
 
