@@ -3,33 +3,61 @@ import Styles from "./Css/Nav.module.css";
 import { connect } from "react-redux";
 import { Button, Modal, ModalBody } from "reactstrap";
 import ItemModal from "../Shared/ItemModal";
+import axios from "axios";
 
 function ShoppingBasket(props) {
-  const [items, setItems] = React.useState([]);
   const [creditCard, setCreditCard] = React.useState("");
   const [firstname, setFirstname] = React.useState("");
   const [lastname, setLastname] = React.useState("");
   const [isCheckoutOpen, toggleCheckoutModal] = React.useState(false);
   const [totalPrice, setTotalPrice] = React.useState("");
-  const [isEmpty, setNotEmpty] = React.useState(true);
+  const [isEmpty, setIsEmpty] = React.useState(false);
   const [isOpen, toggleViewModal] = React.useState(false);
   const [viewItem, setViewItem] = React.useState([]);
+  const [currentUserEmail, setCurrentUserEmail] = React.useState("");
+  const [currentUserId, setCurrentUserId] = React.useState("");
+  const [currentUserItems, setCurrentUserItems] = React.useState([]);
 
   React.useEffect(() => {
-    appendItems();
-  });
+    getCurrentUser();
+  }, []);
 
-  function appendItems() {
-    let items = props.shoppingCart;
-    setItems(items);
-    calculateTotal(items);
-    ifEmpty(items);
+  function appendItems(currentUserItems) {
+    debugger;
+    calculateTotal(currentUserItems);
+    ifEmpty(currentUserItems);
   }
 
-  function ifEmpty(items) {
-    if (items.length >= 1) {
-      setNotEmpty(false);
-      return 0;
+  function getCurrentUser() {
+    axios.get("/api/currentuser").then(response => {
+      console.log(response);
+    });
+    debugger;
+    let currentUserEmail = sessionStorage.userEmail;
+    let currentUserId = sessionStorage.userId;
+    if (sessionStorage.length === 0) {
+      setIsEmpty(true);
+      console.log("no user");
+    }
+    setCurrentUserEmail(currentUserEmail);
+    setCurrentUserId(currentUserEmail);
+    getCurrentUserList(currentUserId);
+    console.log(currentUserId);
+  }
+
+  function getCurrentUserList(currentUserId) {
+    axios.get("/api/getorder/" + currentUserId).then(response => {
+      let currentUserItems = response.data;
+      setCurrentUserItems(currentUserItems);
+      appendItems(currentUserItems);
+      console.log(currentUserItems);
+    });
+  }
+  function ifEmpty(currentUserItems) {
+    debugger;
+    if (currentUserItems === 0) {
+      setIsEmpty(true);
+      return "0";
     }
   }
 
@@ -41,9 +69,9 @@ function ShoppingBasket(props) {
     }
   }
 
-  function calculateTotal(items) {
+  function calculateTotal(currentUserItems) {
     let totalPrice = 0;
-    for (let val of items) {
+    for (let val of currentUserItems) {
       totalPrice += val.Price;
     }
     if (totalPrice === 0 || totalPrice === null || totalPrice === undefined) {
@@ -90,7 +118,7 @@ function ShoppingBasket(props) {
         </div>
       </div>
       <div className="row" style={{ display: "inline-flex" }}>
-        {items.map(item => (
+        {currentUserItems.map(item => (
           <div key={item.Id} className="col sm-4">
             <div>
               <ul>

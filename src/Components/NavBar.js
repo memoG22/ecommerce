@@ -28,6 +28,18 @@ function NavBar(props) {
   const [searchString, setSearchString] = React.useState("men");
   const [dropDown, setDropDown] = React.useState(false);
   const [search, setSearchResults] = React.useState([]);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  React.useEffect(() => {
+    isUserLoggedIn();
+  }, []);
+
+  function isUserLoggedIn() {
+    if (sessionStorage.length > 0) {
+      setIsLoggedIn(true);
+    }
+    console.log(sessionStorage);
+  }
 
   function keyPressSearch(e) {
     if (e.keyCode === 13) {
@@ -158,6 +170,17 @@ function NavBar(props) {
             </div>
           </NavItem>
         </div>
+        {sessionStorage && (
+          <div className="col sm-4">
+            <NavItem className={Styles.textRight}>
+              <NavLink to="/adminview">
+                <div>
+                  <h1 style={{ color: "white" }}>{sessionStorage.userId}</h1>
+                </div>
+              </NavLink>
+            </NavItem>
+          </div>
+        )}
         <div className="col sm-4">
           <NavItem className={Styles.textRight}>
             <NavLink to="/shoppingbasket">
@@ -189,6 +212,11 @@ function NavBar(props) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setUser: user =>
+      dispatch({
+        type: "SET_USER",
+        user
+      }),
     setsearch: searchItems =>
       dispatch({
         type: "SET_SEARCHRESULTS",
@@ -197,9 +225,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(NavBar)
 );

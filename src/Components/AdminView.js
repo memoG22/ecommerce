@@ -72,15 +72,15 @@ function AdminView(props) {
       // itemId: item.ItemId
     };
     debugger;
-    // if (
-    //   window.confirm(
-    //     "You will not be able to get this item back, are you sure you want to delete this item from your mechandise?"
-    //   )
-    // ) {
-    axios.post("/api/deleteorderitem", payload).then(response => {
-      console.log(response);
-    });
-    // } else return "You chose to keep this item";
+    if (
+      window.confirm(
+        "You will not be able to get this item back, are you sure you want to delete this item from your mechandise?"
+      )
+    ) {
+      axios.post("/api/deleteorderitem", payload).then(response => {
+        console.log(response);
+      });
+    } else return "You chose to keep this item";
   }
 
   function editClick(item) {
