@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -98,6 +99,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\IUserAuthData.cs" />
     <Compile Include="Models\LoginResult.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\UserBase.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

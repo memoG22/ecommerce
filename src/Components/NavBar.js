@@ -87,8 +87,8 @@ function NavBar(props) {
                 onMouseEnter={() => setDropDown(!dropdownOpen)}
                 style={{
                   textAlign: "center",
-                  height: "100%",
-                  size: "100%",
+                  // height: "100%",
+                  // size: "100%",
                   color: "white"
                 }}
                 className="fa fa-home fa-4x"

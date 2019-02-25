@@ -94,7 +94,7 @@ namespace ecommerce.Services
                         PasswordHash = (string)reader["PasswordHash"];
                     };
 
-                    if (BCrypt.Net.BCrypt.Verify(login.PasswordHash, PasswordHash))
+                    if (BCrypt.Net.BCrypt.Verify(login.Password, PasswordHash))
                     {
                         return result;
                     }

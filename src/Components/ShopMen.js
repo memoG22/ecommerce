@@ -6,9 +6,11 @@ import { Button } from "reactstrap";
 
 function ShopMen(props) {
   const [items, setItems] = React.useState([]);
+  const [currentUserId, setCurrentuUserId] = React.useState("");
 
   React.useEffect(() => {
     getItems();
+    getCurrentUser();
   }, []);
 
   function getItems() {
@@ -21,7 +23,21 @@ function ShopMen(props) {
   }
 
   function addToShopcart(item) {
-    props.setShoppingCart([...props.shoppingCart, item]);
+    let payload = {
+      userId: currentUserId,
+      itemId: item.Id
+    };
+    axios.post("/api/order/insert", payload).then(response => {
+      console.log(response);
+      alert("Item added to shopping cart");
+    });
+    // axios.props.setShoppingCart([...props.shoppingCart, item]);
+  }
+
+  function getCurrentUser() {
+    let currentUserId = sessionStorage.userId;
+    setCurrentuUserId(currentUserId);
+    console.log(currentUserId);
   }
 
   return (

@@ -21,9 +21,7 @@ namespace ecommerce.Controllers
         {
             List<Item> itemList = itemsService.GetAll();
             return itemList;
-
         }
-
 
         [HttpPost, Route("api/item/post")]
         public HttpResponseMessage Create(ItemsInsertRequest itemsInsertRequest)
@@ -43,7 +41,6 @@ namespace ecommerce.Controllers
 
             int newId = itemsService.Create(itemsInsertRequest);
             return Request.CreateResponse(HttpStatusCode.OK, newId);
-
         }
         [HttpPut, Route("api/item/{id:int}")]
         public HttpResponseMessage Update(int Id, ItemUpdateRequest itemUpdateRequest)
@@ -51,7 +48,6 @@ namespace ecommerce.Controllers
             if (itemUpdateRequest == null)
             {
                 ModelState.AddModelError("", "No Body Data. sad.");
-
             }
             else if (Id != itemUpdateRequest.Id)
             {

@@ -51,6 +51,11 @@ function AdminView(props) {
       setCurrentUserItems(currentUserItems);
     });
   }
+  // function getCurrentUser() {
+  //   axios.get("/api/currentuser").then(response => {
+  //     console.log(response);
+  //   });
+  // }
 
   function getCurrentUser() {
     let currentUserEmail = sessionStorage.userEmail;
@@ -58,18 +63,24 @@ function AdminView(props) {
     setCurrentUserEmail(currentUserEmail);
     setCurrentUserId(currentUserEmail);
     getCurrentUserList(currentUserId);
+    console.log(currentUserId);
   }
 
   function deleteItem(item) {
-    if (
-      window.confirm(
-        "You will not be able to get this item back, are you sure you want to delete this item from your mechandise?"
-      )
-    ) {
-      axios.delete("/api/item/" + item.Id).then(response => {
-        window.location.reload();
-      });
-    } else return "You chose to keep this item";
+    let payload = {
+      orderid: item.OrderId
+      // itemId: item.ItemId
+    };
+    debugger;
+    // if (
+    //   window.confirm(
+    //     "You will not be able to get this item back, are you sure you want to delete this item from your mechandise?"
+    //   )
+    // ) {
+    axios.post("/api/deleteorderitem", payload).then(response => {
+      console.log(response);
+    });
+    // } else return "You chose to keep this item";
   }
 
   function editClick(item) {

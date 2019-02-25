@@ -3,6 +3,7 @@ import Styles from "./Css/Nav.module.css";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
 import { Modal, ModalBody, ModalFooter } from "reactstrap";
+import axios from "axios";
 
 function SearchResults(props) {
   const [isOpen, toggleModal] = React.useState(false);
@@ -29,6 +30,7 @@ function SearchResults(props) {
   }
 
   function addToShopcart(item) {
+    axios.post("/api/");
     props.setShoppingCart([...props.shoppingCart, item]);
   }
 

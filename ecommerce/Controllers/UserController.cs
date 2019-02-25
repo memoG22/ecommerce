@@ -47,12 +47,6 @@ namespace ecommerce.Controllers
             LoginResult result = userService.Login(userLogin);
             if (result != null && result.Id.HasValue)
             {
-                authService.LogIn(new UserBase
-                {
-                    Id = result.Id.Value,
-                    Email = ""
-                });
-
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
 

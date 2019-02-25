@@ -30,12 +30,6 @@ function SignIn(props) {
       });
   }
 
-  function getCurrentUser() {
-    axios.get("/api/currentuser").then(response => {
-      console.log(response);
-    });
-  }
-
   function login() {
     const payload = {
       email,
@@ -57,8 +51,6 @@ function SignIn(props) {
   }
 
   function loginSuccessful(user) {
-    console.log(user);
-
     props.history.push("/adminview");
     sessionStorage.userId = user.Id;
     sessionStorage.userEmail = user.Email;
