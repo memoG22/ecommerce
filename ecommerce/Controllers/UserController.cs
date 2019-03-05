@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Security;
 using ecommerce.Models;
@@ -16,7 +17,6 @@ namespace ecommerce.Controllers
     public class UserController : ApiController
     {
         UserService userService = new UserService();
-        IAuthenticationService authService;
 
         [HttpPost, Route("api/create/user")]
         public HttpResponseMessage Register(UserCreateRequest request)
@@ -44,34 +44,45 @@ namespace ecommerce.Controllers
         [HttpPost, Route("api/login")]
         public HttpResponseMessage Login(UserLoginRequest userLogin)
         {
+
             LoginResult result = userService.Login(userLogin);
+            FormsAuthentication.SetAuthCookie(result.Email.ToString(), true);
+
             if (result != null && result.Id.HasValue)
-            {
+            { 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
-
             else
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new ErrorResponse("Invalid username or password"));
             }
         }
+
+        [HttpPost, Route("api/logout")]
+        public HttpResponseMessage Logout()
+        { 
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+         [HttpGet, Route("api/currentuser")]
+         //[Authorize]
+         public HttpResponseMessage GetCurrentUser()
+         {
+            // FOR EXAMPLE, if you needed the user ID
+            //int userId = Int32.Parse(User.Identity.Name);
+
+            //OR
+            // int? userId = User.Identity.GetId()
+
+            //return Request.CreateResponse(HttpStatusCode.OK, userId);
+            // return userService.GetCurrentUser(Id);
+
+            var o = this.RequestContext.Principal;
+            var i = this.RequestContext.Principal.Identity;
+
+            return Request.CreateResponse(HttpStatusCode.OK, i);
+         }
     }
 }
 
 
-    // FOR EXAMPLE, if you needed the user ID:
-    //int userId = Int32.Parse(User.Identity.Name);
-
-    //  return Request.CreateResponse(HttpStatusCode.OK, userId);
-
-// [HttpGet, Route("api/currentuser/{Id:int}")]
-// public UserModel GetCurrentUser(int Id)
-// public HttpResponseMessage GetCurrentUser(int Id)
-//{
-
-//  return userService.GetCurrentUser(Id);
-//int userId = Int32.Parse(User.Identity.Name);
-// UserModel user = userService.GetCurrentUser(Id);
-
-// return Request.CreateResponse( HttpStatusCode.OK, user);
-// }

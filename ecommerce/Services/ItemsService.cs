@@ -16,6 +16,41 @@ namespace ecommerce.Services
     {
         string connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
 
+        public List<Item>GetItemById(int Id)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = "Item_GetById";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Id", Id);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    List<Item> itemList = new List<Item>();
+                    while (reader.Read())
+                    {
+                        Item item = new Item
+                        {
+                            Id = (int)reader["Id"],
+                            Name = (string)reader["Name"],
+                            Price = (int)reader["Price"],
+                            Image = (string)reader["Image"],
+                            Gender = (int)reader["Gender"],
+                            AgeGroup = (int)reader["AgeGroup"],
+                            Size = (string)reader["Size"],
+                            ItemType = (int)reader["ItemType"],
+                            Description = (string)reader["Description"]
+                        };
+                        itemList.Add(item);
+                    }
+                    return itemList;
+                }
+            }
+        }
+
+
         #region GetAll
         public List<Item> GetAll()
         {
@@ -57,8 +92,54 @@ namespace ecommerce.Services
             }
 
         }
-#endregion
+        #endregion
 
+        public PagedResponse<Item> GetAllPagination(int pageIndex, int pageSize)
+        {
+            PagedResponse<Item> pagedResponse = new PagedResponse<Item>();
+            int totalRows = 0;
+            using (SqlConnection con = new SqlConnection(connectionString))
+
+            {
+
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = "Item_SelectAllPagination";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@pageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("@pageSize", pageSize);
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+
+                    {
+                        List<Item> itemList = new List<Item>();
+                        while (reader.Read())
+                        {
+
+                            Item item = new Item
+                            {
+                                Id = (int)reader["Id"],
+                                Name = (string)reader["Name"],
+                                Price = (int)reader["Price"],
+                                Image = (string)reader["Image"],
+                                Gender = (int)reader["Gender"],
+                                AgeGroup = (int)reader["AgeGroup"],
+                                Size = (string)reader["Size"],
+                                ItemType = (int)reader["ItemType"],
+                                Description = (string)reader["Description"]
+                            };
+                            totalRows = (int)reader["TotalCount"];
+                            itemList.Add(item);
+                        }
+                        pagedResponse.PagedItems = itemList;
+                        pagedResponse.TotalCount = totalRows;
+                        return pagedResponse;
+                    }
+                }
+            }
+
+
+        }
 
         #region create  
         public int Create(ItemsInsertRequest request)
@@ -263,16 +344,13 @@ namespace ecommerce.Services
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@searchString", searchString);
 
-
                 using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    
+                {   
                     List<Item> items = new List<Item>();
                     while (reader.Read())
                     {
                         Item item = new Item
                         {
-
                             Id = (int)reader["Id"],
                             Name = (string)reader["Name"],
                             Price = (int)reader["Price"],
@@ -284,15 +362,12 @@ namespace ecommerce.Services
 
                         };
                         items.Add(item);
-
                     }
                     return items;
-
                 }
             }
         }
     }
-
 }
 
                       

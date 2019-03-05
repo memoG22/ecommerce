@@ -21,10 +21,10 @@ namespace ecommerce.Services.Interfaces
             /// <summary>
             /// Logs out the currently signed in user
             /// </summary>
-            void LogOut();
+           // void LogOut();
 
 
-            IUserAuthData GetCurrentUser();
+           // IUserAuthData GetCurrentUser();
         }
     }
 

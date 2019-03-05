@@ -8,6 +8,7 @@ using System.Web.Http;
 using ecommerce.Models;
 using ecommerce.Requests;
 using ecommerce.Services;
+using ecommerce.Responses;
 
 namespace ecommerce.Controllers
 {
@@ -21,6 +22,24 @@ namespace ecommerce.Controllers
         {
             List<Item> itemList = itemsService.GetAll();
             return itemList;
+
+        }
+
+        [HttpGet, Route("api/itempagination/{pageIndex:int}/{pageSize:int}")]
+        public PagedResponse<Item> GetByPagination(int pageIndex, int pageSize)
+        {
+            PagedResponse<Item> itemList = itemsService.GetAllPagination(pageIndex, pageSize);
+
+            return itemList;
+
+        }
+
+        [HttpGet, Route("api/getitem/{id:int}")]
+        public List<Item> GetAItemByid(int id)
+        {
+            List<Item> itemList = itemsService.GetItemById(id);
+            return itemList;
+
         }
 
         [HttpPost, Route("api/item/post")]
@@ -36,11 +55,9 @@ namespace ecommerce.Controllers
                     (HttpStatusCode.BadRequest, ModelState);
             }
 
-            // FOR EXAMPLE, if you needed the user ID:
-           // int userId = Int32.Parse(User.Identity.Name);
-
             int newId = itemsService.Create(itemsInsertRequest);
             return Request.CreateResponse(HttpStatusCode.OK, newId);
+
         }
         [HttpPut, Route("api/item/{id:int}")]
         public HttpResponseMessage Update(int Id, ItemUpdateRequest itemUpdateRequest)
@@ -48,6 +65,7 @@ namespace ecommerce.Controllers
             if (itemUpdateRequest == null)
             {
                 ModelState.AddModelError("", "No Body Data. sad.");
+
             }
             else if (Id != itemUpdateRequest.Id)
             {

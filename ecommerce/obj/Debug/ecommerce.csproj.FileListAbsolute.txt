@@ -64,6 +64,10 @@ C:\Users\guill\source\repos\ecommerce\ecommerce\obj\Debug\ecommerce.pdb
 C:\Users\guill\source\repos\ecommerce\ecommerce\bin\BCrypt.Net-Next.dll
 C:\Users\guill\source\repos\ecommerce\ecommerce\bin\BCrypt.Net-Next.xml
 C:\Users\guill\source\repos\ecommerce\ecommerce\obj\Debug\ecommerce.csprojAssemblyReference.cache
+C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.csprojAssemblyReference.cache
+C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.csproj.CoreCompileInputs.cache
+C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.dll
+C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.pdb
 C:\Projects\ecommerce\ecommerce\bin\ecommerce.dll.config
 C:\Projects\ecommerce\ecommerce\bin\ecommerce.dll
 C:\Projects\ecommerce\ecommerce\bin\ecommerce.pdb
@@ -125,8 +129,4 @@ C:\Projects\ecommerce\ecommerce\bin\System.Net.Http.Formatting.xml
 C:\Projects\ecommerce\ecommerce\bin\System.Web.Http.xml
 C:\Projects\ecommerce\ecommerce\bin\System.Web.Http.WebHost.xml
 C:\Projects\ecommerce\ecommerce\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.csproj.CoreCompileInputs.cache
 C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.csproj.CopyComplete
-C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.dll
-C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.pdb
-C:\Projects\ecommerce\ecommerce\obj\Debug\ecommerce.csprojAssemblyReference.cache

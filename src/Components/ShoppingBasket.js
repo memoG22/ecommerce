@@ -46,7 +46,9 @@ function ShoppingBasket(props) {
   }
 
   function getCurrentUserList(currentUserId) {
-    axios.get("/api/getorder/" + currentUserId).then(response => {
+    debugger;
+    let id = Number(currentUserId);
+    axios.get("/api/getorder/" + id).then(response => {
       let currentUserItems = response.data;
       setCurrentUserItems(currentUserItems);
       appendItems(currentUserItems);
