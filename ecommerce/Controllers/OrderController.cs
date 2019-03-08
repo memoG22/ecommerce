@@ -32,8 +32,6 @@ namespace ecommerce.Controllers
             }
             orderServices.DeleteOrderItem(req);
             return Request.CreateResponse(HttpStatusCode.OK);
-
-
         }
 
     [HttpGet, Route("api/getorder/{id:int}")]
@@ -58,7 +56,6 @@ namespace ecommerce.Controllers
             int orderId = orderServices.OrderInsert(request);
             return Request.CreateResponse(HttpStatusCode.OK, orderId);
         }
-
     }
 }
         

@@ -16,7 +16,6 @@ namespace ecommerce.Controllers
     {
         ItemsService itemsService = new ItemsService();
         UserService userService = new UserService();
-
         [HttpGet, Route("api/items")]
         public List<Item> GetAll()
         {
